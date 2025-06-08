@@ -1,0 +1,188 @@
+* {
+  font-family: "Chocolate Classical Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #dddddd;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.sidebar {
+    width: 270px;
+    height: 100vh;
+    background-color: #052c53;
+    border-radius: 15px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.menu li {
+    margin: 15px 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu li a:hover {
+    background: rgb(132, 164, 212);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(132, 164, 212, 0.4);
+}
+
+.menu li a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.content {
+    background: white;
+    border-radius: 15px;
+    flex-grow: 1;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+        
+.content h1 {
+    color: #052c53;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+        
+.content p {
+    color: #052c53;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 700px;
+    text-align: center;
+}
+        
+.highlight {
+    background: linear-gradient(to right, #052c53, #866dd0);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+/* Estilos específicos para el menú inferior */
+.bottom-menu {
+    margin-top: auto; /* Empuja el menú hacia abajo */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+        
+.bottom-menu li a {
+    background: rgba(255, 255, 255, 0.05);
+}
+        
+.bottom-menu li:first-child a:hover {
+    background: #4CAF50;
+}
+        
+.bottom-menu li:last-child a:hover {
+    background: #f44336;
+}
+
+/* Indicador visual para los botones inferiores */
+    .bottom-menu li a:after {
+    content: '↓';
+    margin-left: 10px;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+        
+.bottom-menu li:first-child a:after {
+    content: '↩';
+}
+        
+.bottom-menu li:last-child a:after {
+    content: '🚪';
+}
+
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 19px;
+    background-color: #aee3fe;
+}
+
+form { 
+    max-width: 300px; 
+}
+
+label { 
+    display: block;
+    margin-top: 10px;
+    color: #dddddd;
+}
+
+/*input[type="text"], input[type="password"] { width: 100%; padding: 8px; }*/
+
+input[type="submit"] { 
+    margin-top: 15px; 
+    padding: 10px;
+    width: 80%;
+    font-size: 19px;
+    border-radius: 15px;
+    justify-self: center;
+    display: block;
+    margin: 0px auto;
+    margin-top: 40px;
+    cursor: pointer;
+    background-color: #386089;
+    border: oldlace 2px solid;
+    color: aliceblue;
+    text-align: center;
+    transition: 300ms;
+}
+
+input[type="submit"]:hover {
+    
+    background-color: #052c53; /* Cambia el color de fondo al pasar el mouse */
+    color: #dddddd; /* Cambia el color del texto al pasar el mouse */
+} 
+        
