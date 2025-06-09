@@ -3,7 +3,6 @@ class SolicitudControlador {
 
     public function solicitud(): void {
         session_start();
-
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -12,6 +11,7 @@ class SolicitudControlador {
             
             $nameInput = $_POST['nombre'] ?? '';
             $añosServicioInput = $_POST['añosServicio'] ?? '';
+            $estado = "Pendiente";
 
             if ($añosServicioInput >= 25) {
                 $asuntoInput = "Me quiero jubilar porque ya cumpli con los años de servicio";
@@ -22,6 +22,8 @@ class SolicitudControlador {
 
             $solicitud->name = $nameInput;
             $solicitud->asunto = $asuntoInput;
+            $solicitud->estado = $estado;
+            $solicitud->empleado_solicitud_id = $_SESSION['ci'];
             $solicitud->EnviarSolicitud();
             
         } else {
