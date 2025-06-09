@@ -28,11 +28,29 @@
     <title>Solicitar Jubilación</title>
 <style>
 
-        form { max-width: 300px; margin: auto; }
-        label { display: block; margin-top: 10px; }
+        form { max-width: 500px; margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Espacio entre columnas */
+            justify-content: space-between; 
+        }
+        label { display: block; margin-top: 10px; color: #052c53;}
         input[type="text"], input[type="password"] { width: 100%; padding: 8px; }
         input[type="submit"] { margin-top: 15px; padding: 10px; width: 100%; }
         .error { color: red; text-align: center; }
+
+        .formulario {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Espacio entre columnas */
+            justify-content: space-between;
+        }
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    width: 45%; /* Ajusta el ancho de cada columna */
+}
     </style>
 </head>
 <body>
@@ -46,29 +64,34 @@
         <p>Aquí va el contenido principal...</p>
 
         <form action="?controlador=solicitud&metodo=solicitud" method="post">
-        <label for="cedula">Cédula:</label>
-        <input type="text" id="cedula" name="cedula" required value="<?= $_SESSION['ci']?> " readonly>
-        
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required value="<?= $_SESSION['name']?>">
+            <div class="columna">    
+                <label for="cedula">Cédula:</label>
+                <input type="text" id="cedula" name="cedula" required value="<?= $_SESSION['ci']?> " readonly>
+                
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required value="<?= $_SESSION['name']?>">
 
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required value="<?= $_SESSION['lastname']?>">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required value="<?= $_SESSION['lastname']?>">
 
-        <label for="cargo">Cargo:</label>
-        <input type="text" id="cargo" name="cargo" required value="<?= $_SESSION['rol']?>">
+                <label for="cargo">Cargo:</label>
+                <input type="text" id="cargo" name="cargo" required value="<?= $_SESSION['rol']?>">
+            </div>
 
-        <label for="departamento">Departamento:</label>
-        <input type="text" id="departamento" name="departamento" required value="<?= $_SESSION['departamento']?>">
+            <div class="columna">
 
-        <label for="añosServicio">Años de servicio:</label>
-        <input type="text" id="añosServicio" name="añosServicio" required value="<?= $añosServicio->y ?>" readonly>
-        
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required value="<?= $_SESSION['edad']?>" readonly>
-        
-        <label for="tipoJubilacion">Tipo de jubilacion:</label>
-        <input type="text" id="tipoJubilacion" name="tipoJubilacion" required value="">
+                <label for="departamento">Departamento:</label>
+                <input type="text" id="departamento" name="departamento" required value="<?= $_SESSION['departamento']?>">
+
+                <label for="añosServicio">Años de servicio:</label>
+                <input type="text" id="añosServicio" name="añosServicio" required value="<?= $añosServicio->y ?>" readonly>
+                
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required value="<?= $_SESSION['edad']?>" readonly>
+                
+                <label for="tipoJubilacion">Tipo de jubilacion:</label>
+                <input type="text" id="tipoJubilacion" name="tipoJubilacion" required value="">
+            </div>
         
         <input type="submit" value="Enviar solicitud">
     </form>
