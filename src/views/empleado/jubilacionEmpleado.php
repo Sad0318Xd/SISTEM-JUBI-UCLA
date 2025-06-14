@@ -20,6 +20,7 @@
         <p>Este sistema permite realizar solicitudes de jubilación, consultar el estado de sus trámites y gestionar toda la documentación requerida de manera eficiente y segura.</p>
         <p>Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class="highlight">Volver</span> y <span class="highlight">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.</p>
     </main>
+    
     <?php
         session_start();
         // Si no existe un usuario autenticado, mostrar su nombre y rol
