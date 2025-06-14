@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/css/stylejubiempleado.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <title>Gestión de Solicitudes</title>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Menú</h2>
-        <ul class="menu">
-            <li><a href="?controlador=VerSolicitud&metodo=VerSolicitud">Solicitudes</a></li>
-            <li><a href="#">Perfil</a></li>
-            <li><a href="#">Configuración</a></li>
-            <li><a href="?controlador=inicio&metodo=inicio">Salir</a></li>
-        </ul>
-    </div>
+    <?php
+            include __DIR__ . '/../navs/navSolicitudAdmin.php';
+    ?>
 
     <div class="content">
         <h1>Bienvenido a la página</h1>

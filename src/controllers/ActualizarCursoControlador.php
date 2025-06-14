@@ -36,7 +36,7 @@ class ActualizarCursoControlador {
 
                 // Crear nombre único
                 $newName  = uniqid('curso_', true) . '.' . $ext;
-                $destDir  = __DIR__ . '/../../../public/assets/images/cursos/';
+                $destDir  = __DIR__ . '/src/img/cursos/';
                 if (!is_dir($destDir)) mkdir($destDir, 0755, true);
                 $destPath = $destDir . $newName;
 
@@ -46,7 +46,7 @@ class ActualizarCursoControlador {
                 }
 
                 // Generar la ruta web accesible
-                $rutaImagen = '/assets/images/cursos/' . $newName;
+                $rutaImagen = '../src/img/cursos/' . $newName;
 
                 // (Opcional) Borrar la imagen antigua
                 $sql_old = "SELECT imagen FROM cursos WHERE id = ?";

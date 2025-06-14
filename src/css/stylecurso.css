@@ -49,14 +49,15 @@ body {
     font-size: 20px;
     font-weight: 400;
     margin-top: 20px;
-    color: #fff;
+    color: #000000;
+    text-align: center;
 }
 
 .card p{
     margin-top: 20px;
     font-size: 14px;
     font-weight: 300;
-    color: #fff;
+    color: #000000;
     letter-spacing: 0.5px;
 }
 
@@ -70,7 +71,7 @@ body {
 .footer__card{
     margin-top: 10px;
     display: flex;
-    color: #fff;
+    color: #000000;
     justify-content: space-between;
 }
 
@@ -79,9 +80,25 @@ body {
     font-weight: 500;
 }
 
+.footer__card a {
+    background-color: transparent;
+    border-radius: 50px;
+    border: #052c53 solid 2px;
+    padding: 5px 30px;
+    display: inline-block;
+    text-decoration: none;
+    transition: all 100ms;
+    margin: 5px 0;
+}
+.footer__card a:hover {
+    border: #1a4979 solid 2px;
+    padding: 8px 33px;
+    color: #1a4979;
+}
+
 footer {
     background-color: #052c53;
-    color: aliceblue;
+    color: rgb(15, 15, 15);
     text-align: center;
     padding: 31px;
 }
@@ -91,7 +108,6 @@ main {
     display: flex;
     justify-content: center;
 }
-
 
 @media screen and (max-width:1200px) {
     .container__cards{

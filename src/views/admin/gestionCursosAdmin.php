@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylejubiempleado.css">
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
     <title>Jubilación para Empleados</title>
 </head>
 <body>
@@ -15,13 +15,13 @@
         include __DIR__ . '/../navs/navCursosAdmin.php';
     ?>
 
-    <main class="content">
+    <div class="content">
 
         <h1>Sistema de <span class="highlight">Gestión de Cursos</span></h1>
         <p>Este sistema permite agregar y realizar modificaciones a los cursos anteriormente agregados para que todos los usuarios empleados del sistema tengan acceso a ellos.</p>
         <p>Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class="highlight">Volver</span> y <span class="highlight">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.</p>
     
-    </main>
+    </div>
     
     <?php
         session_start();

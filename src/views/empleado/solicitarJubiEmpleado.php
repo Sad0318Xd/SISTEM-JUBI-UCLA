@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylejubiempleado.css">
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
     <title>Solicitar Jubilación</title>
 <style>
 
@@ -34,7 +34,6 @@
             gap: 20px; /* Espacio entre columnas */
             justify-content: space-between; 
         }
-        label { display: block; margin-top: 10px; color: #052c53;}
         input[type="text"], input[type="password"] { width: 100%; padding: 8px; }
         input[type="submit"] { margin-top: 15px; padding: 10px; width: 100%; }
         .error { color: red; text-align: center; }
@@ -42,7 +41,7 @@
         .formulario {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* Espacio entre columnas */
+            gap: 100px; /* Espacio entre columnas */
             justify-content: space-between;
         }
 

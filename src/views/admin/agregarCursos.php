@@ -8,20 +8,11 @@
         exit;
     }
 
-    if (!isset($_GET['id'])) {
-        die("ID de curso no especificado");
-    }
-    $id = (int) $_GET['id'];
-
     // 1) Traer datos actuales
-    $sql = "SELECT * FROM cursos WHERE id = ?";
+    /*$sql = "SELECT * FROM cursos WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
-    $curso = $stmt->fetch();
-
-    if (!$curso) {
-        die("Curso no encontrado");
-    }
+    $curso = $stmt->fetch();   */
     
 ?>
 <!DOCTYPE html>
@@ -45,10 +36,10 @@
 
         <section class="content">
             
-            <h1>Editar Curso: <?= htmlspecialchars($curso['titulo']) ?></h1>
+            <h1>Agregar un nuevo Curso</h1>
 
             <form 
-                action="?controlador=actualizarCurso&metodo=ActualizarCurso" 
+                action="?controlador=actualizarCurso&metodo=AgregarCurso" 
                 method="post" 
                 enctype="multipart/form-data"
             >
@@ -56,31 +47,27 @@
                 
                 <label>Título:<br>
                 <input type="text" name="titulo" 
-                        value="<?= htmlspecialchars($curso['titulo']) ?>" required>
+                        value="" required>
                 </label><br><br>
                 
                 <label>Descripción:<br>
-                <textarea class="textarea" name="descripcion" rows="5" required><?= 
-                    htmlspecialchars($curso['descripcion']) ?></textarea>
+                <textarea class="textarea" name="descripcion" rows="5" required></textarea>
                 </label><br><br>
                 
                 <label>Instructor:
                 <input type="text" name="instructor" 
-                        value="<?= htmlspecialchars($curso['instructor']) ?>" required>
+                        value="" required>
                 </label><br><br>
                 
                 <label>Fecha:
                 <input type="date" name="fecha" 
-                        value="<?= $curso['fecha'] ?>" required>
+                        value="" required>
                 </label><br><br>
                 
                 <!-- Vista previa de la imagen actual -->
                 <label>Imagen actual:<br>
-                <?php if ($curso['imagen'] && file_exists($curso['imagen'])): ?>
                     <img src="<?= $curso['imagen'] ?>" width="200"><br>
-                <?php else: ?>
                     <em>No hay imagen</em><br>
-                <?php endif; ?>
                 </label><br>
                 
                 <label>Subir nueva imagen:<br>

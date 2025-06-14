@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/styleinicio.css">
-    <link rel="stylesheet" href="../src/css/stylecursos.css">
+    <link rel="stylesheet" href="../src/css/stylecurso.css">
     <title>Inicio</title>
 </head>
 <body>
@@ -117,45 +117,14 @@
                             <h3 class="user__name">$instructor</h3>
                             <i>$fecha</i>
                         </div>
+                        <div>
+                            <a href="" class="btn__card">Más información</a>
+                        </div>
                     </div>
                     HTML;
                 }
             ?>
-            <div class="card">
-                <div class="cover__card">
-                    <img src="../src/img/cursos/img-1.jpg" alt="">
-                </div>
-                <h2>Sabemos cómo aumentar los beneficios</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui sunt eius dolore pariatur. Error, provident et similique sunt voluptate odit eos facere expedita, culpa at officia magnam quia vel eius!</p>
-                <hr>
-                <div class="footer__card">
-                    <h3 class="user__name">Mamie Barnett</h3>
-                    <i>08 Marzo</i>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cover__card">
-                    <img src="images/img-2.jpg" alt="">
-                </div>
-                <h2>Sabemos cómo aumentar los beneficios</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui sunt eius dolore pariatur. Error, provident et similique sunt voluptate odit eos facere expedita, culpa at officia magnam quia vel eius!</p>
-                <hr>
-                <div class="footer__card">
-                    <h3 class="user__name">Mamie Barnett</h3>
-                    <i>08 Marzo</i>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cover__card">
-                    <img src="images/img-3.jpg" alt="">
-                </div>
-                <h2>Sabemos cómo aumentar los beneficios</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui sunt eius dolore pariatur. Error, provident et similique sunt voluptate odit eos facere expedita, culpa at officia magnam quia vel eius!</p>
-                <hr>
-                <div class="footer__card">
-                    <h3 class="user__name">Mamie Barnett</h3>
-                    <i>08 Marzo</i>
-                </div>
+            
             </div>
             
         </div>

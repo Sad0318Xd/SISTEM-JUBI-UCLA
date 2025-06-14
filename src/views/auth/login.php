@@ -14,9 +14,9 @@
         <div class="logo">
             <img src="../src/img/logoucla.png" alt="Logo">
             <h1>JUBILACIÓN UCLA</h1>
-
-            <a href="">ATRÁS</a>
         </div>
+
+        <a href="">ATRÁS</a>
     </header>
     
     <div class="login-container">

@@ -8,5 +8,9 @@ class GestionCursosControlador {
     public function EditSuccess(): void {
         include_once  __DIR__ . '/../views/admin/editSuccess.php';
     }
+
+    public function AgregarCursos(): void {
+        include_once  __DIR__ . '/../views/admin/agregarCursos.php';
+    }
 }
 ?>
