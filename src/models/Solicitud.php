@@ -4,6 +4,7 @@ class Solicitud {
     public $name;
     public $asunto;
     public $estado;
+    public $fecha_creacion;
     public $empleado_solicitud_id;
 
     public function __construct($pdo) {
@@ -17,7 +18,7 @@ class Solicitud {
     }*/
 
     public function EnviarSolicitud() {
-        $sql = "INSERT INTO solicitudes(name, asunto, estado, empleado_solicitud) VALUES (:name, :asunto, :estado, :empleado_solicitud)";
+        $sql = "INSERT INTO solicitudes(name, asunto, estado, empleado_solicitud) VALUES (:name, :asunto, :estado,  :empleado_solicitud)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(":name", $this->name, PDO::PARAM_STR);
         $stmt->bindParam(":asunto", $this->asunto, PDO::PARAM_STR);
