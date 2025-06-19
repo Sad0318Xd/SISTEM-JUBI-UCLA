@@ -9,7 +9,7 @@ class SolicitudControlador {
             require_once __DIR__ . '/../../config/connection_db.php';
             require_once __DIR__ . "/../models/Solicitud.php"; 
             
-            $nameInput = $_POST['nombre'] ?? '';
+            $nameInput = $_POST['nombre']  . ' ' . $_POST['apellido'] ?? '';
             $añosServicioInput = $_POST['añosServicio'] ?? '';
             $estado = "Pendiente";
 

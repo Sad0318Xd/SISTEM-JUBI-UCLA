@@ -11,11 +11,28 @@ class Solicitud {
         $this->pdo = $pdo;
     }
 
-    /*public function CargarSolicitudes() {
-        $sql = "SELECT * FROM solicitudes";
+    public function ChangesStatus($CI, $nuevoEstado) {
+        $sql = "UPDATE solicitudes SET estado = :estado WHERE empleado_solicitud = :CI";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindParam(':estado', $nuevoEstado);
+        $statement->bindParam(':CI', $CI);
+        $statement->execute();
+    }
+
+    public function FindSolicByCI($CI) {
+        $sql = "SELECT * FROM solicitudes WHERE empleado_solicitud = :CI";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(":CI");
-    }*/
+        $stmt->bindParam(":CI", $CI, PDO::PARAM_STR);
+        $stmt->execute();
+        $soliData = $stmt->fetch();
+
+        if ($soliData) {
+            $this->fecha_creacion = $soliData['fecha_creacion'];
+            $this->estado = $soliData['estado'];
+            return $this;
+        }
+        return null;
+    }
 
     public function EnviarSolicitud() {
         $sql = "INSERT INTO solicitudes(name, asunto, estado, empleado_solicitud) VALUES (:name, :asunto, :estado,  :empleado_solicitud)";

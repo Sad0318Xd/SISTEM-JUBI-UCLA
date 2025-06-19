@@ -16,7 +16,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitudes</title>
 <style>
         /*.table {
@@ -265,6 +269,22 @@ tbody tr:hover {
                 <button style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Buscar</button>
             </div>
         </div>
+        <?php if (isset($_GET['procesado']) && $_GET['procesado'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud procesada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ver PDF'
+            }).then(() => {
+                // Abrir el PDF generado en una nueva pestaña
+                window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_GET['id'] ?>", "_blank");
+                // Recarga la URL para evitar repetir el mensaje
+                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+            });
+        </script>
+        <?php  ?>
+        <?php endif; ?>
 
         <!-- Contenedor para el scroll -->
         <div class="tabla-container">
@@ -285,19 +305,23 @@ tbody tr:hover {
                 </thead>
 
                 <tbody>
-                    <?php while($userData = $stmt->fetch()): ?>
+                    <?php while($solicitud = $stmt->fetch()): ?>
 
                     <tr>
 
-                        <th><?= $userData['id']?></th>
-                        <th><?= $userData['name']?></th>
-                        <th><?= $userData['empleado_solicitud']?></th>
-                        <th><?= $userData['asunto']?></th>
-                        <th><?= $userData['estado']?></th>
-                        <th><?= $userData['fecha_creacion']?></th>
+                        <td><?= $solicitud['id']?></td>
+                        <td><?= $solicitud['name']?></td>
+                        <td><?= $solicitud['empleado_solicitud']?></td>
+                        <td><?= $solicitud['asunto']?></td>
+                        <td><?= $solicitud['estado']?></td>
+                        <td><?= $solicitud['fecha_creacion']?></td>
 
-                        <th><a href="updateTask.php?id=<?= $userData['id']?>">Editar</a></th>
-                        <th><a href="deleteTask.php?id=<?= $userData['id']?>">Eliminar</a></th>
+                        <td><?php if ($solicitud['estado'] == 'Pendiente'): ?>
+                        <a href="?controlador=procesarSolicitud&metodo=procesarSolicitud&ci=<?=$solicitud['empleado_solicitud']?>" class="btn-procesar">Procesar</a>
+                        <?php else: ?>
+                        <button disabled>Procesado</button>
+                        <?php endif; ?></td>
+                        <td><a href="deleteTask.php?id=<?= $solicitud['id']?>">Eliminar</a></td>
 
                     </tr>
 

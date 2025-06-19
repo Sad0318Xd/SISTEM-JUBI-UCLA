@@ -36,7 +36,7 @@ class ActualizarCursoControlador {
 
                 // Crear nombre único
                 $newName  = uniqid('curso_', true) . '.' . $ext;
-                $destDir  = __DIR__ . '/src/img/cursos/';
+                $destDir  = __DIR__ . '/../img/cursos/';
                 if (!is_dir($destDir)) mkdir($destDir, 0755, true);
                 $destPath = $destDir . $newName;
 
@@ -53,8 +53,8 @@ class ActualizarCursoControlador {
                 $st_old  = $pdo->prepare($sql_old);
                 $st_old->execute([$id]);
                 $old     = $st_old->fetchColumn();
-                if ($old && file_exists(__DIR__ . '/../../../public' . $old)) {
-                    unlink(__DIR__ . '/../../../public' . $old);
+                if ($old && file_exists(__DIR__ . $old)) {
+                    unlink(__DIR__ . $old);
                 }
             } 
 
