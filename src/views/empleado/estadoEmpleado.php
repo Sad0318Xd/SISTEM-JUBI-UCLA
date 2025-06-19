@@ -7,9 +7,12 @@
             header("Location: index.php?controlador=autenticacion&metodo=login");
         } 
 
-        $sql = "SELECT * FROM solicitudes WHERE empleado_solicitud = '$_SESSION[ci]'";
+        $sql = "SELECT * FROM solicitudes WHERE empleado_solicitud = :ci";
         $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':ci', $_SESSION['ci'], PDO::PARAM_STR);
         $stmt->execute();
+
+        $solidata = $stmt->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +23,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Estado de la Solicitud</title>
     <style>
         .table {
@@ -60,9 +64,33 @@
     ?>
 
     <main class="content">
+
+        <?php if ($solidata && $solidata['estado'] === 'Aprobado'): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: '¡Tu solicitud ha sido aprobada!',
+                text: 'Puedes descargar el pdf para ver la carta de aprobación de tu solicitud.',
+                icon: 'success',
+                confirmButtonText: 'Ver PDF',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $solidata['id'] ?>", "_blank");
+                }
+                // No redirijas inmediatamente, deja que el usuario decida
+            });
+        });
+    </script>
+<?php endif; ?>
+
         <h1>Bienvenido al apartado para consultar tu estado</h1>
         <p>Aquí se muestra el estado en el que se encuentra tu solicitud de jubilación, <?= $_SESSION['name'] . ' ' . $_SESSION['lastname']?> </p>
             <div class="contenedor-estado">
+                
+                
+
                 <div class="estado">
                     <table class="table">
                         <thead>
@@ -73,19 +101,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($userData = $stmt->fetch()): ?>
 
+                            <?php if ($solidata): ?>
                             <tr>
-                                <th><?= $userData['name']?></th>
-                                <th><?= $userData['asunto']?></th>
-                                <th><?= $userData['estado']?></th>
+                                <th><?= $solidata['name']?></th>
+                                <th><?= $solidata['asunto']?></th>
+                                <th><?= $solidata['estado']?></th>
                             </tr>
-                            <?php endwhile; ?>
-
-
+                            <?php else: ?>
+                                <tr><td colspan="3">No hay solicitud registrada aún.</td></tr>
+                            <?php endif; ?>
 
                         </tbody>
                     </table>
+
+                    
                 </div>  
             </div>
     </main>

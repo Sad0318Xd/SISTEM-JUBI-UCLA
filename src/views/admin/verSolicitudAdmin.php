@@ -9,6 +9,7 @@
         $sql = "SELECT * FROM solicitudes";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
+
     ?>
 
 <!DOCTYPE html>
@@ -269,6 +270,7 @@ tbody tr:hover {
                 <button style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Buscar</button>
             </div>
         </div>
+
         <?php if (isset($_GET['procesado']) && $_GET['procesado'] === 'ok'): ?>
         <script>
             Swal.fire({
@@ -283,7 +285,6 @@ tbody tr:hover {
                 window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
             });
         </script>
-        <?php  ?>
         <?php endif; ?>
 
         <!-- Contenedor para el scroll -->

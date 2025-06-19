@@ -1,5 +1,4 @@
 <?php
-    //header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&exito=1");
     ob_start();
 ?>
 
