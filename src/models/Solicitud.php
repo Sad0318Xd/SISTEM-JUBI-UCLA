@@ -6,6 +6,7 @@ class Solicitud {
     public $estado;
     public $fecha_creacion;
     public $empleado_solicitud_id;
+    public $fecha_cambio;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;

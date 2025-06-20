@@ -127,3 +127,16 @@ footer {
   position: relative; /* Cambiado de fixed a relative */
   margin-top: auto; /* Empuja el footer hacia abajo */
 }
+
+
+.boton-atras {
+  background-color: #052c53;
+  border-radius: 50px;
+  padding: 12px 40px;
+  display: inline-block;
+}
+
+.boton-atras a{
+  color: aliceblue;
+  text-decoration: none
+}

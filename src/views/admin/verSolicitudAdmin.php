@@ -38,7 +38,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion1.css">
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitudes</title>
 </head>
@@ -54,14 +54,14 @@
         <div class="info-bar">
             <div class="total-solicitudes">Total de solicitudes: <?= $total_solicitudes ?? '0' ?></div>
 
-            <form method="GET" action="">
+            <form class="form" method="GET" action="">
                 <input type="hidden" name="controlador" value="<?= $_GET['controlador'] ?? '' ?>">
                 <input type="hidden" name="metodo" value="<?= $_GET['metodo'] ?? '' ?>">
                 <input type="text" name="ciFilter" placeholder="Buscar solicitud por CI..." style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; width: 250px;">
                 <button type="submit" style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Buscar</button>
             </form>
 
-            <form method="GET" action="">
+            <form class="form" method="GET" action="">
                 <input type="hidden" name="controlador" value="<?= $_GET['controlador'] ?? '' ?>">
                 <input type="hidden" name="metodo" value="<?= $_GET['metodo'] ?? '' ?>">
 
@@ -89,7 +89,7 @@
                         <th>Asunto</th>
                         <th>Estado</th>
                         <th>Recibo en</th>
-                        <th></th>
+                        <th>Acción</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -106,11 +106,12 @@
                         <td><?= $soli['estado']?></td>
                         <td><?= $soli['fecha_creacion']?></td>
 
-                        <td>
+                        <td >
                             <?php if ($soli['estado'] == 'Pendiente'): ?>
                                 <a href="?controlador=procesarSolicitud&metodo=procesarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-procesar">Procesar</a>
                             <?php elseif ($soli['estado'] === 'En proceso'): ?>
                                 <a href="?controlador=procesarSolicitud&metodo=aprobarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-aprobar">Aprobar</a>
+                                <a href="?controlador=&metodo=Solicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-rechazar">Rechazar</a>
                             <?php elseif ($soli['estado'] == 'Aprobado'): ?>
                                 <span class="badge-success">✓   Aprobado</span>
                             <?php elseif ($soli['estado'] == 'Rechazado'): ?>

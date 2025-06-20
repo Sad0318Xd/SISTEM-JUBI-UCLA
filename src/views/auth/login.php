@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylelogin.css">
+    <link rel="stylesheet" href="../src/css/stylelogin1.css">
 </head>
 <body>
     <header>
@@ -16,7 +16,10 @@
             <h1>JUBILACIÓN UCLA</h1>
         </div>
 
-        <a href="">ATRÁS</a>
+        <div class="boton-atras">
+
+            <a  href="?controlador=inicio&metodo=inicio">ATRÁS</a>
+        </div>
     </header>
     
     <div class="login-container">

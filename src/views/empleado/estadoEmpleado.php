@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylegestion1.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Estado de la Solicitud</title>
     <style>
@@ -77,6 +77,7 @@
                                 <th>Nombre</th>
                                 <th>Asunto</th>
                                 <th>Estado</th>
+                                <th>Dia Actualizado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +87,7 @@
                                 <th><?= $solidata['name']?></th>
                                 <th><?= $solidata['asunto']?></th>
                                 <th><?= $solidata['estado']?></th>
+                                <th><?= $solidata['fecha_actualizacion']?></th>
                             </tr>
                             <?php else: ?>
                                 <tr><td colspan="3">No hay solicitud registrada aún.</td></tr>
@@ -111,7 +113,7 @@
                     allowEscapeKey: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $solidata['id'] ?>", "_blank");
+                        window.open("index.php?controlador=procesarSolicitud&metodo=GenerarAprobacionPDF&id=<?= $_SESSION['ci'] ?>", "_blank");
                     }
                     // No redirijas inmediatamente, deja que el usuario decida
                 });
