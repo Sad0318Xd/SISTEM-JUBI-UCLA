@@ -290,14 +290,14 @@ tbody tr:hover {
 
 
 
-        h1 {
+       /* h1 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 25px;
             font-size: 28px;
             padding-bottom: 15px;
             border-bottom: 2px solid #3498db;
-        }
+        }*/
 
         .tabla-container {
             max-height: 610px;
@@ -422,4 +422,86 @@ tbody tr:hover {
             color: #2c3e50;
         }
 
-     
+     /* Botón para estado "Pendiente" */
+.btn-procesar {
+    background-color: #3498db; /* Azul */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-procesar:hover {
+    background-color: #2980b9; /* Azul más oscuro */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Botón para estado "En Proceso" */
+.btn-aprobar {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-aprobar:hover {
+    background-color: #27ae60; /* Verde más oscuro */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Badge para estado "Aprobado" */
+.badge-success {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Badge para estado "Rechazado" */
+.badge-error {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Botón deshabilitado */
+.btn-disabled {
+    background-color: #95a5a6; /* Gris */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

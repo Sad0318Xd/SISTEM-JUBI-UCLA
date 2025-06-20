@@ -65,32 +65,11 @@
 
     <main class="content">
 
-        <?php if ($solidata && $solidata['estado'] === 'Aprobado'): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: '¡Tu solicitud ha sido aprobada!',
-                text: 'Puedes descargar el pdf para ver la carta de aprobación de tu solicitud.',
-                icon: 'success',
-                confirmButtonText: 'Ver PDF',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $solidata['id'] ?>", "_blank");
-                }
-                // No redirijas inmediatamente, deja que el usuario decida
-            });
-        });
-    </script>
-<?php endif; ?>
-
         <h1>Bienvenido al apartado para consultar tu estado</h1>
         <p>Aquí se muestra el estado en el que se encuentra tu solicitud de jubilación, <?= $_SESSION['name'] . ' ' . $_SESSION['lastname']?> </p>
+
             <div class="contenedor-estado">
                 
-                
-
                 <div class="estado">
                     <table class="table">
                         <thead>
@@ -120,6 +99,25 @@
             </div>
     </main>
     
+    <?php if ($solidata && $solidata['estado'] === 'Aprobado'): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¡Tu solicitud ha sido aprobada!',
+                    text: 'Puedes descargar el pdf para ver la carta de aprobación de tu solicitud.',
+                    icon: 'success',
+                    confirmButtonText: 'Ver PDF',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $solidata['id'] ?>", "_blank");
+                    }
+                    // No redirijas inmediatamente, deja que el usuario decida
+                });
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 </html>

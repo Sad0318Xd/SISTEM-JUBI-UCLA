@@ -50,11 +50,11 @@ class ProcesarSolicitudControlador {
                 }
 
                 $solicitud = new Solicitud($pdo);
-                $solicitudData = $solicitud->FindSolicByCI($ci);
+                $solicitudData = $solicitud->FindSolicByCI($ci)->fetch();
 
                 if ($solicitudData) {
-                    $estado = $solicitudData->estado;
-                    $fecha_creacion = $solicitudData->fecha_creacion;
+                    $estado = $solicitudData['estado'];
+                    $fecha_creacion = $solicitudData['fecha_creacion'];
 
                     $fecha = new DateTime($fecha_creacion);
                     $meses = [

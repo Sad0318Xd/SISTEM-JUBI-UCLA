@@ -33,14 +33,11 @@ class AutenticacionControlador {
                 $_SESSION['fecha_ingreso'] = $usuario->fecha_ingreso;
                 $_SESSION['edad'] = $usuario->edad;
                 $_SESSION['departamento'] = $usuario->departamento;
+                $_SESSION['cargo'] = $usuario->cargo;
 
-                if ($usuario->rol === "administrador") {
-                    header("Location: index.php?controlador=inicio&metodo=inicio");
-                    exit();
-                } else {
-                    header("Location: index.php?controlador=inicio&metodo=inicio");
-                    exit();
-                }
+                header("Location: index.php?controlador=inicio&metodo=inicio");
+                exit();
+                
             }else {
                 $error = "Credenciales inválidas.";
                 include_once __DIR__ . '/../views/auth/login.php';

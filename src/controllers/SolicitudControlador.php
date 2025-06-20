@@ -8,7 +8,16 @@ class SolicitudControlador {
 
             require_once __DIR__ . '/../../config/connection_db.php';
             require_once __DIR__ . "/../models/Solicitud.php"; 
+
+            $solicitud = new Solicitud($pdo);
             
+            $exits = $solicitud->FindSolicByCI($_SESSION['ci'])->fetch();
+            
+            if($exits)
+            {
+                header("Location: index.php?controlador=solicitud&metodo=solicitud&error=existe");
+                return;
+            }
             $nameInput = $_POST['nombre']  . ' ' . $_POST['apellido'] ?? '';
             $añosServicioInput = $_POST['añosServicio'] ?? '';
             $estado = "Pendiente";
@@ -18,13 +27,15 @@ class SolicitudControlador {
             } else {
                 $asuntoInput = "Me quiero jubilar porque NI IDEA";
             }
-            $solicitud = new Solicitud($pdo);
+            
 
             $solicitud->name = $nameInput;
             $solicitud->asunto = $asuntoInput;
             $solicitud->estado = $estado;
             $solicitud->empleado_solicitud_id = $_SESSION['ci'];
             $solicitud->EnviarSolicitud();
+
+            header("Location: index.php?controlador=solicitud&metodo=solicitud&exito=1");
             
         } else {
 
