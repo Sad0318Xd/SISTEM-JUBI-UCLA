@@ -93,4 +93,89 @@ class ActualizarCursoControlador {
             include_once __DIR__ . '/../views/admin/editarCursos.php';
         }
     }
+
+    public function AgregarCurso()
+{
+    require_once __DIR__ . '/../../config/connection_db.php';
+
+    // Verifica que se enviaron todos los datos requeridos
+    if (
+        isset($_POST['titulo']) &&
+        isset($_POST['descripcion']) &&
+        isset($_POST['instructor']) &&
+        isset($_POST['fecha'])
+    ) {
+        $titulo = $_POST['titulo'];
+        $descripcion = $_POST['descripcion'];
+        $instructor = $_POST['instructor'];
+        $fecha = $_POST['fecha'];
+        $imagen = null;
+
+        // Manejar la carga de imagen
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $directorio = 'uploads/';
+            $nombreTemporal = $_FILES['imagen']['tmp_name'];
+            $nombreFinal = uniqid() . '_' . basename($_FILES['imagen']['name']);
+            $rutaDestino = $directorio . $nombreFinal;
+
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0755, true);
+            }
+
+            if (move_uploaded_file($nombreTemporal, $rutaDestino)) {
+                $imagen = $rutaDestino;
+            }
+        }
+
+        // Inserción en base de datos
+        $sql = "INSERT INTO cursos (titulo, descripcion, instructor, fecha, imagen)
+                VALUES (:titulo, :descripcion, :instructor, :fecha, :imagen)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':instructor', $instructor);
+        $stmt->bindParam(':fecha', $fecha);
+        $stmt->bindParam(':imagen', $imagen);
+
+        if ($stmt->execute()) {
+            header("Location: index.php?controlador=gestionCursos&metodo=agregarCursos&status=ok");
+            exit;
+        } else {
+            echo "Error al insertar el curso.";
+        }
+    } else {
+        echo "Faltan datos del formulario.";
+    }
+}
+
+public function eliminarCurso()
+{
+    require_once __DIR__ . '/../../config/connection_db.php';
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+
+        // Primero obtengo la ruta de la imagen para borrarla
+        $stmt = $pdo->prepare("SELECT imagen FROM cursos WHERE id = ?");
+        $stmt->execute([$id]);
+        $curso = $stmt->fetch();
+
+        // Borro el curso
+        $sql = "DELETE FROM cursos WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        if ($stmt->execute([$id])) {
+            // Eliminar la imagen si existe
+            if (!empty($curso['imagen']) && file_exists($curso['imagen'])) {
+                unlink($curso['imagen']);
+            }
+
+            header("Location: index.php?controlador=cursosAdmin&metodo=cursos&status=eliminado");
+            exit;
+        } else {
+            echo "Error al eliminar el curso.";
+        }
+    } else {
+        echo "ID de curso no proporcionado.";
+    }
+}
 }

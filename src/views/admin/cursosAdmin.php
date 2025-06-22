@@ -61,7 +61,7 @@
                             </div>
                             <div class="footer__card">
                                 <a href="?controlador=editarCursos&metodo=editarCursos&id={$row['id']}">Editar</a>
-                                <a href="?controlador=editarCursos&metodo=editarCursos&id={$row['id']}">Eliminar</a>
+                                <a href="?controlador=actualizarCurso&metodo=eliminarCurso&id={$row['id']}">Eliminar</a>
                             </div>
                         </div>
                         HTML;
