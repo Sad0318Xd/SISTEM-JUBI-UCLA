@@ -18,14 +18,15 @@ class SolicitudControlador {
                 header("Location: index.php?controlador=solicitud&metodo=solicitud&error=existe");
                 return;
             }
+            
             $nameInput = $_POST['nombre']  . ' ' . $_POST['apellido'] ?? '';
             $añosServicioInput = $_POST['añosServicio'] ?? '';
             $estado = "Pendiente";
 
             if ($añosServicioInput >= 25) {
-                $asuntoInput = "Me quiero jubilar porque ya cumpli con los años de servicio";
-            } else {
-                $asuntoInput = "Me quiero jubilar porque NI IDEA";
+                $asuntoInput = "Me quiero jubilar porque ya cumplí con los años de servicio.";
+            } elseif ($_POST['edad'] >= 60) {
+                $asuntoInput = "Me quiero jubilar porque ya cumplí con la edad.";
             }
             
 

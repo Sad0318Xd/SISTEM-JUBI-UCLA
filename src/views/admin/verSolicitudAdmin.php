@@ -111,14 +111,15 @@
                                 <a href="?controlador=procesarSolicitud&metodo=procesarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-procesar">Procesar</a>
                             <?php elseif ($soli['estado'] === 'En proceso'): ?>
                                 <a href="?controlador=procesarSolicitud&metodo=aprobarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-aprobar">Aprobar</a>
-                                <a href="?controlador=&metodo=Solicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-rechazar">Rechazar</a>
+                                <a href="?controlador=procesarSolicitud&metodo=rechazarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-rechazar">Rechazar</a>
                             <?php elseif ($soli['estado'] == 'Aprobado'): ?>
                                 <span class="badge-success">✓   Aprobado</span>
-                            <?php elseif ($soli['estado'] == 'Rechazado'): ?>
-                                <span class="badge-error">✗  Rechazado</span>
+                            <?php elseif ($soli['estado'] == 'Rechazada'): ?>
+                                <span class="badge-error">✗  Rechazada</span>
                             <?php endif; ?>
                         </td>
-                        <td><a href="deleteTask.php?id=<?= $soli['id']?>">Eliminar</a></td>
+                        <td><button onclick="window.location.href='index.php?controlador=VerSolicitud&metodo=VerSolicitud&confirmar=ok&ci=<?= $soli['empleado_solicitud'] ?>'" class="delete-btn" >Eliminar</button>
+                            </td>
 
                     </tr>
 
@@ -145,6 +146,62 @@
             });
         </script>
         <?php endif; ?>
+
+        <?php if (isset($_GET['aprobado']) && $_GET['aprobado'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud aprobada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ver PDF'
+            }).then(() => {
+                // Abrir el PDF generado en una nueva pestaña
+                window.open("index.php?controlador=procesarSolicitud&metodo=generarAprobacionPDF&id=<?= $_GET['id'] ?>", "_blank");
+                // Recarga la URL para evitar repetir el mensaje
+                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+            });
+        </script>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['rechazada']) && $_GET['rechazada'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud rechazada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                // Recarga la URL para evitar repetir el mensaje
+                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+            });
+        </script>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['confirmar']) && $_GET['confirmar'] === 'ok'): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "Esta acción eliminará la solicitud seleccionada.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirigir para eliminar
+                            window.location.href = "index.php?controlador=procesarSolicitud&metodo=EliminarSolicitud&ci=<?= $_GET['ci'] ?>";
+                        }
+                    });
+                });
+            </script>
+        <?php endif; ?>
+
+        
     
 </body>
 </html>

@@ -51,7 +51,58 @@ class ProcesarSolicitudControlador {
                 echo "No se ha proporcionado un ID de solicitud.";
             }
 
-        } 
+        }
+         public function RechazarSolicitud(): void {
+
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+                if (isset($_GET['ci'])) {
+                    
+                    $ci = $_GET['ci'];
+                    include_once __DIR__ . '/../../config/connection_db.php';
+                    include_once __DIR__ . '/../models/Solicitud.php';
+
+                    $solicitud = new Solicitud($pdo);
+
+                    $solicitud->ChangesStatus($ci, 'Rechazada');
+
+                    header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&rechazada=ok&id=$ci");
+
+                    } else {
+                        echo "No se ha encontrado una solicitud para el CI proporcionado.";
+                    }
+
+                } else {
+                    echo "No se ha proporcionado un ID de solicitud.";
+                }
+
+        }
+
+        public function EliminarSolicitud(): void {
+
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+                if (isset($_GET['ci'])) {
+                    
+                    $ci = $_GET['ci'];
+                    include_once __DIR__ . '/../../config/connection_db.php';
+                    include_once __DIR__ . '/../models/Solicitud.php';
+
+                    $solicitud = new Solicitud($pdo);
+
+                    $solicitud->EliminarSolicitud($ci);
+
+                    header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&ci=$ci");
+
+                    } else {
+                        echo "No se ha encontrado una solicitud para el CI proporcionado.";
+                    }
+
+                } else {
+                    echo "No se ha proporcionado un ID de solicitud.";
+                }
+
+        }
     
     public function GenerarPDF() {
 

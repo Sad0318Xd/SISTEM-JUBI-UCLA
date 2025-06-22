@@ -117,5 +117,17 @@ class Solicitud {
         return $stmt->execute();
     }
 
+    public function EliminarSolicitud($ci_empleado) {
+
+        try {
+            $sql = "DELETE FROM solicitudes WHERE empleado_solicitud = :ci ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':ci', $ci_empleado, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            return "Error al eliminar la solicitud: " . $e->getMessage();
+        }
+    }
+
 }
 ?>
