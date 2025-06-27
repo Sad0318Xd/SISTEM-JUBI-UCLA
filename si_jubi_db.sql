@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2025 a las 03:23:02
+-- Tiempo de generación: 23-06-2025 a las 12:30:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,8 +43,9 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `titulo`, `descripcion`, `imagen`, `instructor`, `fecha`, `created_at`, `updated_at`) VALUES
-(1, 'PHP Avanzado', 'Profundiza en PDO, OOP y patrones de diseño.', '../src/img/cursos/img-1.jpg', 'Juan Pérez', '2025-06-15', '2025-06-12 13:59:07', '2025-06-14 14:46:28'),
-(2, 'MySQL Desde Cero', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/img-1.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-14 14:59:04');
+(1, 'PHP Avanzado', 'Profundiza en PDO, OOP y patrones de diseño.', '../src/img/cursos/curso_6857289d78e326.17735040.png', 'Juan Pérez', '2025-06-15', '2025-06-12 13:59:07', '2025-06-21 21:48:13'),
+(2, 'MySQL Desde Cero', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/curso_6854188c2729f8.25881552.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-19 14:02:52'),
+(3, 'MySQL Desde Cero Parte II', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/img-1.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-14 14:59:04');
 
 -- --------------------------------------------------------
 
@@ -58,40 +59,18 @@ CREATE TABLE `solicitudes` (
   `asunto` varchar(250) DEFAULT NULL,
   `estado` set('Pendiente','En proceso','Aprobado','Rechazada') DEFAULT NULL,
   `fecha_creacion` date NOT NULL DEFAULT current_timestamp(),
-  `empleado_solicitud` int(11) DEFAULT NULL
+  `empleado_solicitud` int(11) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `solicitudes`
 --
 
-INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`) VALUES
-(8, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(9, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(10, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(11, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(12, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(13, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(14, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(15, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(16, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(17, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(18, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(19, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(20, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(21, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(22, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(23, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(24, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(25, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(26, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(27, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(28, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(29, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(30, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(31, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(33, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(34, 'Kamila', 'Me quiero jubilar porque NI IDEA', 'Pendiente', '2025-06-14', 31926265);
+INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`, `fecha_actualizacion`) VALUES
+(57, 'Marcos  Castellanos', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Rechazada', '2025-06-21', 31111417, '2025-06-22 01:32:04'),
+(58, 'Luis Rodriguez', 'Me quiero jubilar porque NI IDEA', 'Rechazada', '2025-06-21', 31366204, '2025-06-22 02:48:39'),
+(59, 'Marianny Torres', 'Me quiero jubilar porque NI IDEA', 'Rechazada', '2025-06-21', 31350497, '2025-06-22 03:02:19');
 
 -- --------------------------------------------------------
 
@@ -108,18 +87,22 @@ CREATE TABLE `usuarios` (
   `fecha_ingreso` date DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
   `genero` set('masculino','femenino') DEFAULT NULL,
-  `departamento` varchar(250) DEFAULT NULL
+  `departamento` varchar(250) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `cargo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`CI`, `name`, `lastname`, `password`, `rol`, `fecha_ingreso`, `edad`, `genero`, `departamento`) VALUES
-(31350493, 'Samuel ', 'Rosales', '123', 'administrador', '2001-06-17', 25, 'masculino', 'Indefinido'),
-(31111417, 'Marcos ', 'Castellanos', '123', 'empleado', '1999-06-11', 36, 'masculino', 'indefinido'),
-(31366204, 'Luis', 'Rodriguez', '123', 'empleado', '2005-12-02', 19, 'masculino', 'Mantenimiento Técnico'),
-(31926265, 'Kamila', 'Alvarado', '123', 'empleado', '2007-01-17', 18, 'femenino', 'Relaciones Laborales');
+INSERT INTO `usuarios` (`CI`, `name`, `lastname`, `password`, `rol`, `fecha_ingreso`, `edad`, `genero`, `departamento`, `telefono`, `cargo`) VALUES
+(31350493, 'Samuel ', 'Rosales', '123', 'administrador', '2001-06-17', 25, 'masculino', 'Departamento de Informática', '04125120548', 'Administrativo'),
+(31111417, 'Marcos ', 'Castellanos', '123', 'empleado', '1999-09-15', 36, 'masculino', 'Decanato', '04123118580', 'Obrero'),
+(31366204, 'Luis', 'Rodriguez', '123', 'empleado', '2005-12-02', 19, 'masculino', 'Mantenimiento Técnico', '04125129119', 'Técnico Superior'),
+(31926265, 'Kamila', 'Alvarado', '123', 'empleado', '2007-01-17', 18, 'femenino', 'Relaciones Laborales', '04125120647', 'Administrativo'),
+(31350497, 'Marianny', 'Torres', '123', 'empleado', '2007-01-17', 20, 'femenino', 'Departamento de Salud', '04123118580', 'Directora de Departamento '),
+(31313131, 'Victor', 'Pargas', '123', 'empleado', '2007-01-17', 20, 'masculino', 'Musica', '04123118580', 'Vocalista');
 
 --
 -- Índices para tablas volcadas
@@ -152,13 +135,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Restricciones para tablas volcadas
