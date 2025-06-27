@@ -120,13 +120,7 @@ h1 {
     background: rgba(255, 255, 255, 0.05);
 }
         
-.bottom-menu li:first-child a:hover {
-    background: #4CAF50;
-}
-        
-.bottom-menu li:last-child a:hover {
-    background: #f44336;
-}
+
 
 /* Indicador visual para los botones inferiores */
     .bottom-menu li a:after {
@@ -486,8 +480,4 @@ td {
 
 button {
     font-size: 15px;
-}
-
-.left {
-    align-items: right;
 }

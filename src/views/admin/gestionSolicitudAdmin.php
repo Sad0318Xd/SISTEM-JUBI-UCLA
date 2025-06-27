@@ -14,7 +14,8 @@
 
     <div class="content">
         <h1>Bienvenido a la página</h1>
-        <p>Aquí va el contenido principal...</p>
+        <p>Este sistema permite administrar las solicitudes de jubilación, como <span class="highlight">Procesar</span> el estado de los trámites y gestionar toda la documentación de manera eficiente y segura.</p>
+        <p>Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class="highlight">Volver</span> y <span class="highlight">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.</p>
     </div>
 
     <?php

@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion2.css">
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitudes</title>
     <style>
@@ -171,15 +171,14 @@
         
         th {
             background-color: #f8f9fa;
-            color: #2c3e50;
+            color:rgb(255, 255, 255);
             font-weight: bold;
+            background: #052c53;
         }
         
         tr:hover {
             background-color: #f5f7fa;
-        }
-        
-        
+        }     
         
         
         @media (max-width: 992px) {
@@ -192,6 +191,9 @@
                 margin-bottom: 30px;
             }
         }
+
+                
+
     </style>
 </head>
 <body>
@@ -303,7 +305,7 @@
                 title: '¡Listo!',
                 text: 'Solicitud procesada correctamente.',
                 icon: 'success',
-                confirmButtonText: 'Ver PDF'
+                confirmButtonText: 'Ver carta en PDF'
             }).then(() => {
                 window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_GET['id'] ?>", "_blank");
                 window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
@@ -317,7 +319,7 @@
                 title: '¡Listo!',
                 text: 'Solicitud aprobada correctamente.',
                 icon: 'success',
-                confirmButtonText: 'Ver PDF'
+                confirmButtonText: 'Ver aprobación en PDF'
             }).then(() => {
                 window.open("index.php?controlador=procesarSolicitud&metodo=generarAprobacionPDF&id=<?= $_GET['id'] ?>", "_blank");
                 window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";

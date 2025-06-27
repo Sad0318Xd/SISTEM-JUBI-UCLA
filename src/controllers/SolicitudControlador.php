@@ -27,8 +27,10 @@ class SolicitudControlador {
                 $asuntoInput = "Me quiero jubilar porque ya cumplí con los años de servicio.";
             } elseif ($_POST['edad'] >= 60) {
                 $asuntoInput = "Me quiero jubilar porque ya cumplí con la edad.";
+            } else {
+                header("Location: index.php?controlador=solicitud&metodo=solicitud&error=invalido");
+                return;
             }
-            
 
             $solicitud->name = $nameInput;
             $solicitud->asunto = $asuntoInput;

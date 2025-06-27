@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylecurso.css">
-    <link rel="stylesheet" href="../src/css/stylegestion2.css">
+    <link rel="stylesheet" href="../src/css/stylegestion.css">
     <title>Inicio</title>
 </head>
 <body>

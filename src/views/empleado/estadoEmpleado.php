@@ -25,38 +25,9 @@
     <link rel="stylesheet" href="../src/css/stylegestion.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Estado de la Solicitud</title>
-    <style>
-        .table {
-        border-collapse: separate;
-        width: 100%;
-        margin: 20px 0;
-        font-size: 18px;
-        text-align: left;
-        border-radius: 8px;
-        }
-
-        .table th, .table td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            
-            border-radius: 2px;
-        }
-
-        .table th {
-            background-color: #052c53;
-            color: white;
-        }
-
-        .table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .table tr:hover {
-            background-color: #ddd;
-        }
-
-    </style>
+  
 </head>
+
 <body>
 
     <?php
@@ -71,7 +42,7 @@
             <div class="contenedor-estado">
                 
                 <div class="estado">
-                    <table class="table">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Nombre</th>

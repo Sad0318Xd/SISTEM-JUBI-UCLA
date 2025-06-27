@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylegestion2.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitar Jubilación</title>
 <style>
@@ -118,15 +118,35 @@
                         title: '¡Listo!',
                         text: 'Solicitud enviada correctamente.',
                         icon: 'success',
-                        confirmButtonText: 'Ver estado',
+                        confirmButtonText: 'Ver estado y descargar carta',
                         allowOutsideClick: false,
                         allowEscapeKey: false
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_SESSION['ci'] ?>", "_blank");
                             window.location.href = "index.php?controlador=estado&metodo=estado";
                         }
                     });
                 });
+            </script>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'invalido'): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¡Advertencia!',
+                    text: 'No cumples con los requisitos para iniciar con tu proceso de jubilación. Verifica que CUMPLES con los AÑOS de servicio o la EDAD correspondiente.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php?controlador=solicitud&metodo=solicitud";
+                    }
+                });
+            });
             </script>
         <?php endif; ?>
       
