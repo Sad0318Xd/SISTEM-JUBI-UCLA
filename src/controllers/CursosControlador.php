@@ -100,7 +100,7 @@ class CursosControlador {
 
             $stmt = $pdo->prepare($sql);
             if ($stmt->execute($vals)) {
-                header("Location: index.php?controlador=gestionCursos&metodo=cursosVistaAdmin");
+                header("Location: index.php?controlador=gestionCursos&metodo=cursosVistaAdmin&update=ok");
                 exit;
             } else {
                 die("Error al actualizar el curso.");
@@ -153,7 +153,7 @@ class CursosControlador {
         }
     }
 
-    public function eliminarCurso(){
+    public function EliminarCurso(){
         
         require_once __DIR__ . '/../../config/connection_db.php';
         require_once __DIR__ . '/../models/Curso.php';

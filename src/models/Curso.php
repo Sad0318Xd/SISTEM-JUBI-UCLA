@@ -34,7 +34,7 @@ class Curso {
         $stmt->bindParam(':imagen', $this->imagen, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            header("Location: index.php?controlador=gestionCursos&metodo=agregarCursosVistaAdmin&status=ok");
+            header("Location: index.php?controlador=gestionCursos&metodo=agregarCursosVistaAdmin&status=agregado");
             exit;
         } else {
             echo "Error al insertar el curso.";
@@ -61,7 +61,7 @@ class Curso {
                 unlink($curso['imagen']);
             }
 
-            header("Location: index.php?controlador=gestionCursos&metodo=cursosVistaAdmin&status=eliminado");
+            header("Location: index.php?controlador=gestionCursos&metodo=cursosVistaAdmin&confirmar=ok");
             exit;
         } else {
             echo "Error al eliminar el curso.";

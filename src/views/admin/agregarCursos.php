@@ -24,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylecurso.css">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Inicio</title>
 </head>
 <body>
@@ -69,7 +70,7 @@
                 </label><br>
                 
                 <label>Subir nueva imagen:<br>
-                <input type="file" name="imagen">          
+                <input type="file" name="imagen" required>          
                 <small>(png/jpg, max 2 MB)</small>
                 </label><br><br>
                 
@@ -77,6 +78,19 @@
             </form>
         </section>
     </main>
+
+    <?php if (isset($_GET['status']) && $_GET['status'] === 'agregado'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Curso agregado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.href = "index.php?controlador=gestionCursos&metodo=AgregarCursosVistaAdmin";
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 </html>
