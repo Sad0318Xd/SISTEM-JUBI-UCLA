@@ -80,18 +80,19 @@
         
         <div class="container__cards">
             <?php
+
                 require_once __DIR__ . '/../../../config/connection_db.php';
+                require_once __DIR__ . '/../../models/Curso.php';
+
                 // Si no existe un usuario autenticado, mostrar su nombre y rol
                 if (!isset($_SESSION['ci'])) {
                     header("Location: index.php?controlador=autenticacion&metodo=login");
-                } 
-                $sql = "SELECT * FROM cursos";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                
-                
+                }
 
-                while($row = $stmt->fetch()) {
+                $cursos = new Curso($pdo);
+                $cursos = $cursos->CargarCursos();
+
+                while($row = $cursos->fetch()) {
                     // Usar htmlspecialchars para prevenir XSS
                     $titulo = htmlspecialchars($row['titulo']);
                     $descripcion = htmlspecialchars($row['descripcion']);
@@ -99,16 +100,14 @@
                     $instructor = htmlspecialchars($row['instructor']);
                     $fecha = htmlspecialchars($row['fecha']);
 
-                    $rutaimg = $imagen;
-
-                    if (!file_exists($rutaimg)) {
-                        echo "La imagen no existe: $rutaimg";
+                    if (!file_exists($imagen)) {
+                        echo "La imagen no existe: $imagen";
                     }
                     
                     echo <<<HTML
                     <div class="card">
                         <div class="cover__card">
-                            <img src="$rutaimg" alt="Portada del curso">
+                            <img src="$imagen" alt="Portada del curso">
                         </div>
                         <h2>$titulo</h2>
                         <p>$descripcion</p>

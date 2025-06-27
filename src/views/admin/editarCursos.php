@@ -48,7 +48,7 @@
             <h1>Editar Curso: <?= htmlspecialchars($curso['titulo']) ?></h1>
 
             <form 
-                action="?controlador=actualizarCurso&metodo=ActualizarCurso" 
+                action="?controlador=cursos&metodo=actualizarCurso" 
                 method="post" 
                 enctype="multipart/form-data"
             >

@@ -1,5 +1,4 @@
 <?php
-    require_once __DIR__ . '/../../../config/connection_db.php';
     session_start();
 
     // Validar sesión...
@@ -39,7 +38,7 @@
             <h1>Agregar un nuevo Curso</h1>
 
             <form 
-                action="?controlador=actualizarCurso&metodo=AgregarCurso" 
+                action="?controlador=cursos&metodo=agregarCurso" 
                 method="post" 
                 enctype="multipart/form-data"
             >

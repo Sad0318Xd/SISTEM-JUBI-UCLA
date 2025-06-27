@@ -251,7 +251,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <button onclick="window.location.href='index.php?controlador=VerSolicitud&metodo=VerSolicitud&confirmar=ok&ci=<?= $soli['empleado_solicitud'] ?>'" class="delete-btn" >Eliminar</button>
+                                    <button onclick="window.location.href='index.php?controlador=gestionSolicitud&metodo=VerSolicitudVistaAdmin&confirmar=ok&ci=<?= $soli['empleado_solicitud'] ?>'" class="delete-btn" >Eliminar</button>
                                 </td>
                             </tr>
                             <?php endwhile; ?>
@@ -308,7 +308,7 @@
                 confirmButtonText: 'Ver carta en PDF'
             }).then(() => {
                 window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_GET['id'] ?>", "_blank");
-                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
             });
         </script>
     <?php endif; ?>
@@ -322,7 +322,7 @@
                 confirmButtonText: 'Ver aprobación en PDF'
             }).then(() => {
                 window.open("index.php?controlador=procesarSolicitud&metodo=generarAprobacionPDF&id=<?= $_GET['id'] ?>", "_blank");
-                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
             });
         </script>
     <?php endif; ?>
@@ -335,7 +335,7 @@
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                window.location.href = "index.php?controlador=VerSolicitud&metodo=VerSolicitud";
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
             });
         </script>
     <?php endif; ?>

@@ -104,7 +104,7 @@
                     allowEscapeKey: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "index.php?controlador=estado&metodo=estado";
+                        window.location.href = "index.php?controlador=solicitud&metodo=solicitud";
                     }
                 });
             });
@@ -124,7 +124,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_SESSION['ci'] ?>", "_blank");
-                            window.location.href = "index.php?controlador=estado&metodo=estado";
+                            window.location.href = "index.php?controlador=gestionSolicitud&metodo=estadoVistaEmpleado";
                         }
                     });
                 });

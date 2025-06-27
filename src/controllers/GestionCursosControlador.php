@@ -5,12 +5,21 @@ class GestionCursosControlador {
         include_once  __DIR__ . '/../views/admin/gestionCursosAdmin.php';
     }
 
-    public function EditSuccess(): void {
-        include_once  __DIR__ . '/../views/admin/editSuccess.php';
-    }
-
-    public function AgregarCursos(): void {
+    public function AgregarCursosVistaAdmin(): void {
         include_once  __DIR__ . '/../views/admin/agregarCursos.php';
     }
+
+    public function EditarCursosVistaAdmin(): void {
+        include_once  __DIR__ . '/../views/admin/editarCursos.php';
+    } 
+
+    public function CursosVistaAdmin(): void {
+        include_once  __DIR__ . '/../views/admin/cursosAdmin.php';
+    }
+
+    public function CursosVistaEmpleado(): void {
+        include_once  __DIR__ . '/../views/empleado/cursosEmpleado.php';
+    }
+
 }
 ?>

@@ -15,19 +15,44 @@ class ProcesarSolicitudControlador {
 
                 $solicitud->ChangesStatus($ci, 'En proceso');
 
-                header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&procesado=ok&id=$ci");
+                header("Location: index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin&procesado=ok&id=$ci");
 
                 } else {
                     echo "No se ha encontrado una solicitud para el CI proporcionado.";
                 }
 
-            } else {
+        } else {
                 echo "No se ha proporcionado un ID de solicitud.";
-            }
-
         }
 
-        public function AprobarSolicitud(): void {
+    }
+
+    public function AprobarSolicitud(): void {
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        if (isset($_GET['ci'])) {
+            
+            $ci = $_GET['ci'];
+            include_once __DIR__ . '/../../config/connection_db.php';
+            include_once __DIR__ . '/../models/Solicitud.php';
+
+            $solicitud = new Solicitud($pdo);
+
+            $solicitud->ChangesStatus($ci, 'Aprobado');
+
+            header("Location: index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin&aprobado=ok&id=$ci");
+
+            } else {
+                echo "No se ha encontrado una solicitud para el CI proporcionado.";
+            }
+
+        } else {
+            echo "No se ha proporcionado un ID de solicitud.";
+        }
+
+    }
+    public function RechazarSolicitud(): void {
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -39,9 +64,9 @@ class ProcesarSolicitudControlador {
 
                 $solicitud = new Solicitud($pdo);
 
-                $solicitud->ChangesStatus($ci, 'Aprobado');
+                $solicitud->ChangesStatus($ci, 'Rechazada');
 
-                header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&aprobado=ok&id=$ci");
+                header("Location: index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin&rechazada=ok&id=$ci");
 
                 } else {
                     echo "No se ha encontrado una solicitud para el CI proporcionado.";
@@ -51,58 +76,33 @@ class ProcesarSolicitudControlador {
                 echo "No se ha proporcionado un ID de solicitud.";
             }
 
-        }
-         public function RechazarSolicitud(): void {
+    }
 
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    public function EliminarSolicitud(): void {
 
-                if (isset($_GET['ci'])) {
-                    
-                    $ci = $_GET['ci'];
-                    include_once __DIR__ . '/../../config/connection_db.php';
-                    include_once __DIR__ . '/../models/Solicitud.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-                    $solicitud = new Solicitud($pdo);
+            if (isset($_GET['ci'])) {
+                
+                $ci = $_GET['ci'];
+                include_once __DIR__ . '/../../config/connection_db.php';
+                include_once __DIR__ . '/../models/Solicitud.php';
 
-                    $solicitud->ChangesStatus($ci, 'Rechazada');
+                $solicitud = new Solicitud($pdo);
 
-                    header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&rechazada=ok&id=$ci");
+                $solicitud->EliminarSolicitud($ci);
 
-                    } else {
-                        echo "No se ha encontrado una solicitud para el CI proporcionado.";
-                    }
+                header("Location: index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin&ci=$ci");
 
                 } else {
-                    echo "No se ha proporcionado un ID de solicitud.";
+                    echo "No se ha encontrado una solicitud para el CI proporcionado.";
                 }
 
-        }
+            } else {
+                echo "No se ha proporcionado un ID de solicitud.";
+            }
 
-        public function EliminarSolicitud(): void {
-
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-                if (isset($_GET['ci'])) {
-                    
-                    $ci = $_GET['ci'];
-                    include_once __DIR__ . '/../../config/connection_db.php';
-                    include_once __DIR__ . '/../models/Solicitud.php';
-
-                    $solicitud = new Solicitud($pdo);
-
-                    $solicitud->EliminarSolicitud($ci);
-
-                    header("Location: index.php?controlador=VerSolicitud&metodo=VerSolicitud&ci=$ci");
-
-                    } else {
-                        echo "No se ha encontrado una solicitud para el CI proporcionado.";
-                    }
-
-                } else {
-                    echo "No se ha proporcionado un ID de solicitud.";
-                }
-
-        }
+    }
     
     public function GenerarPDF() {
 
