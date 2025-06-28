@@ -1,3 +1,20 @@
+<?php
+    session_start();
+
+    // Si no existe un usuario autenticado
+    if (!isset($_SESSION['ci'])) {
+        header("Location: index.php?controlador=autenticacion&metodo=login");
+    } 
+    
+    include_once __DIR__ . "/../../../config/connection_db.php";
+
+    $sql = "SELECT * FROM interfazadmin WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $texto = $stmt->fetch();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,22 +30,9 @@
     ?>
 
     <div class="content">
-        <h1>Bienvenido a la página</h1>
-        <p>Este sistema permite administrar las solicitudes de jubilación, como <span class="highlight">Procesar</span> el estado de los trámites y gestionar toda la documentación de manera eficiente y segura.</p>
-        <p>Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class="highlight">Volver</span> y <span class="highlight">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.</p>
+        <h1><?=$texto['titulo_soli_gestion']?></h1>
+        <p><?= $texto['texto_soli_gestion1']?></p>
+        <p><?= $texto['texto_soli_gestion2']?></p>
     </div>
-
-    <?php
-            session_start();
-            // Si no existe un usuario autenticado, mostrar su nombre y rol
-            if (!isset($_SESSION['ci'])) {
-                header("Location: index.php?controlador=autenticacion&metodo=login");
-            } else {
-                // Si no hay usuario autenticado, mostrar el enlace de login
-                //echo "Usuario: " . $_SESSION['name'] . " (" . $_SESSION['rol'] . ") | ";
-                // Mostrar un enlace para cerrar sesión
-                //echo '<a href="?controlador=autenticacion&metodo=logout">Cerrar Sesión</a>';
-            }
-    ?>
 </body>
 </html>

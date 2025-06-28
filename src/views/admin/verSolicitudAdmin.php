@@ -22,6 +22,11 @@
             $solicitudes = $solicitud->FindSolicByStatus($estado_filtro);
             $total_solicitudes = $solicitud->TotalSolicitudes($estado_filtro);
         }
+
+        $sql = "SELECT * FROM interfazadmin WHERE id = 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $texto = $stmt->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -203,7 +208,7 @@
     ?>
 
     <div class="container">
-        <h1 class="page-title">Solicitudes de Jubilación</h1>
+        <h1 class="page-title"><?=$texto['titulo_lista_soli'] ?></h1>
         
         <div class="main-content">
             <!-- Contenido principal con la tabla -->

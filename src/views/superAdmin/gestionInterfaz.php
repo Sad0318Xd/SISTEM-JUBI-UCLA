@@ -1,10 +1,8 @@
 <?php
     session_start();
     // Si no existe un usuario autenticado, mostrar su nombre y rol
-        if (!isset($_SESSION['ci'])) {
+    if (!isset($_SESSION['rol'])) {
         header("Location: index.php?controlador=autenticacion&metodo=login");
-    } else {
-
     }
 
     include_once __DIR__ . "/../../../config/connection_db.php";
@@ -28,13 +26,13 @@
 <body>
 
     <?php
-        include __DIR__ . '/../navs/navSolicitarJubiEmpleado.php';
+        include __DIR__ . '/../navs/navInterfazSuperUser.php';
     ?>
 
     <main class="content">
-        <h1><?=$texto['titulo_gestion']?></h1>
-        <p><?=$texto['texto_gestion1']?></p>
-        <p><?=$texto['texto_gestion2']?></p>
+        <h1>hola señor</h1>
+        <p>hagale con fe</p>
+        <p></p>
     </main>
     
 </body>

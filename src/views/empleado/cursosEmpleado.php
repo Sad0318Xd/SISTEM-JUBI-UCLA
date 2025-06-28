@@ -32,6 +32,12 @@
                 // Si no hay usuario autenticado, mostrar el enlace de login
                 include 'navs/navInicio.php';   
             }
+
+            include_once __DIR__ . "/../../../config/connection_db.php";
+            $sql = "SELECT * FROM interfazempleado WHERE id = 1";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $texto = $stmt->fetch();
         ?>
     </header>
     <div class="container">
@@ -51,11 +57,8 @@
                 <?php
                 // Ejemplo: mostrar contenido distinto según el rol
                 if (isset($_SESSION['rol'])) {
-                    if ($_SESSION['rol'] == 'administrador') {
-                        echo "¿Deseas hoy modificar las opciones de cursos para los trabajadores o revisar los estados de jubilación?";
-                        echo "¡Vamos a ponernos al día!";
-                    } elseif ($_SESSION['rol'] == 'empleado') {
-                        echo "Accede a nuestra variedad de cursos desarrollados especialmente para tí, para que apredas a lidiar con tu post-jubilación. Te ofrecemos todo tipo de cursos y que estan a tu disposicón.";
+                    if ($_SESSION['rol'] == 'empleado') {
+                        echo $texto['texto_curso'];
                     }
                 } else {
                     echo "Solicita tu jubilación de una forma fácil y rápida con unos cuantos clicks.";

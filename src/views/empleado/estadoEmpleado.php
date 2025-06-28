@@ -13,7 +13,12 @@
         $stmt->execute();
 
         $solidata = $stmt->fetch();
-?>
+
+        $sql = "SELECT * FROM interfazempleado WHERE id = 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $texto = $stmt->fetch();
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +41,8 @@
 
     <main class="content">
 
-        <h1>Bienvenido al apartado para consultar tu estado</h1>
-        <p>Aquí se muestra el estado en el que se encuentra tu solicitud de jubilación, <?= $_SESSION['name'] . ' ' . $_SESSION['lastname']?> </p>
+        <h1><?= $texto['titulo_consultar']?></h1>
+        <p style="margin: 20px; margin-bottom: 30px;"><?= $texto['texto_consultar1']?> <?=$_SESSION['name'] . ' ' . $_SESSION['lastname']?> </p>
 
             <div class="contenedor-estado">
                 

@@ -1,17 +1,12 @@
 <?php
-
+    session_start();
     // Si no existe un usuario autenticado, mostrar su nombre y rol
-    if (!isset($_SESSION['ci'])) {
+    if (!isset($_SESSION['rol'])) {
         header("Location: index.php?controlador=autenticacion&metodo=login");
     }
-        
-    $fecha_actual = new DateTime();
-    $fecha_ingreso = new DateTime($_SESSION['fecha_ingreso']);
-    $añosServicio = $fecha_actual->diff($fecha_ingreso);
-
     include_once __DIR__ . "/../../../config/connection_db.php";
-    $id = 1;
-    $sql = "SELECT * FROM interfazempleado WHERE id = 1";
+
+    $sql = "SELECT * FROM interfazadmin WHERE id = 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $texto = $stmt->fetch();
@@ -25,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylegestion1.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitar Jubilación</title>
 <style>
@@ -52,51 +47,68 @@
             flex-direction: column;
             width: 45%; /* Ajusta el ancho de cada columna */
         }
-    </style>
+</style>
 </head>
 <body>
 
     <?php
-        include __DIR__ . '/../navs/navSolicitarJubiEmpleado.php';
+        include __DIR__ . '/../navs/navInterfazSuperUser.php';
     ?>
 
-    <div class="content">
+    <div style="width: 1000px; align-items: center;" class="content">
 
-        <h1 style="margin-top: 30px;"><?= $texto['titulo_soli']?></h1>
-        <p><?= $texto['texto_soli']?></p>
+        <h1 style="margin-top: 30px;">aaa</h1>
+        <p>estoy arrecho</p>
 
-        <form action="?controlador=solicitud&metodo=solicitud" method="post">
-            <div class="columna">    
-                <label for="cedula">Cédula:</label>
-                <input type="text" id="cedula" name="cedula" required value="<?= $_SESSION['ci']?> " readonly>
-                
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required value="<?= $_SESSION['name']?>" readonly>
+        <form action="?controlador=gestionInterfaz&metodo=actualizarInterfazAdmin" method="post" style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <input type="hidden" name="id" value="<?= $texto['id'] ?>">
 
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required value="<?= $_SESSION['lastname']?>" readonly>
+            <label>
+                Texto del inicio:<br>
+                <textarea name="texto_inicio" rows="6" style="width: 100%; resize: vertical;" placeholder="Escribe aquí el texto de bienvenida..." required><?=$texto['texto_inicio']?></textarea>
+            </label>
 
-                <label for="cargo">Cargo:</label>
-                <input type="text" id="cargo" name="cargo" required value="<?= $_SESSION['cargo']?>" readonly>
-            </div>
+            <label>
+                Título del inicio de gestión de solicitudes:<br>
+                <textarea name="titulo_inicio_solicitudes" rows="4" style="width: 100%; resize: vertical;" placeholder="Ejemplo: Panel de gestión de solicitudes" required><?=$texto['titulo_soli_gestion']?></textarea>
+            </label>
 
-            <div class="columna">
+            <label>
+                Texto del inicio de gestión de solicitudes:<br>
+                <textarea name="texto_inicio_solicitudes" rows="6" style="width: 100%; resize: vertical;" required><?=$texto['texto_soli_gestion1']?></textarea>
+            </label>
 
-                <label for="departamento">Departamento:</label>
-                <input type="text" id="departamento" name="departamento" required value="<?= $_SESSION['departamento']?>" readonly>
+            <label>
+                Texto 2 del inicio de gestión de solicitudes:<br>
+                <textarea name="texto2_inicio_solicitudes" rows="6" style="width: 100%; resize: vertical;" required><?=$texto['texto_soli_gestion2']?></textarea>
+            </label>
 
-                <label for="añosServicio">Años de servicio:</label>
-                <input type="text" id="añosServicio" name="añosServicio" required value="<?= $añosServicio->y ?>" readonly>
-                
-                <label for="edad">Edad:</label>
-                <input type="number" id="edad" name="edad" required value="<?= $_SESSION['edad']?>" readonly>
-                
-                <label for="tipoJubilacion">Tipo de jubilacion:</label>
-                <input type="text" id="tipoJubilacion" name="tipoJubilacion" required value="">
-            </div>
-        
-        <input type="submit" value="Enviar solicitud">
-    </form>
+            <label>
+                Título del listado de solicitudes:<br>
+                <textarea name="titulo_listado_solicitudes" rows="3" style="width: 100%; resize: vertical;" required><?=$texto['titulo_lista_soli']?></textarea>
+            </label>
+
+            <label>
+                Título del inicio de gestión de los cursos:<br>
+                <textarea name="titulo_gestion_cursos" rows="3" style="width: 100%; resize: vertical;" required><?=$texto['titulo_curso_gestion']?></textarea>
+            </label>
+
+            <label>
+                Texto del inicio de gestión de los cursos:<br>
+                <textarea name="texto_inicio_cursos" rows="5" style="width: 100%; resize: vertical;" required><?=$texto['texto_curso_gestion1']?></textarea>
+            </label>
+
+            <label>
+                Texto 2 del inicio de gestión de los cursos:<br>
+                <textarea name="texto2_inicio_cursos" rows="5" style="width: 100%; resize: vertical;" required><?=$texto['texto_curso_gestion2']?></textarea>
+            </label>
+
+            <button type="submit" style="padding: 12px 24px; font-weight: bold; background-color: #005fab; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                Guardar cambios
+            </button>
+
+        </form>
     </div>
 
     <?php if (isset($_GET['error']) && $_GET['error'] === 'existe'): ?>
@@ -118,21 +130,18 @@
             </script>
         <?php endif; ?>
 
-        <?php if (isset($_GET['exito']) && $_GET['exito'] === '1'): ?>
+        <?php if (isset($_GET['update']) && $_GET['update'] === 'ok'): ?>
             <script>
                     document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: '¡Listo!',
                         text: 'Solicitud enviada correctamente.',
                         icon: 'success',
-                        confirmButtonText: 'Ver estado y descargar carta',
+                        confirmButtonText: 'oki',
                         allowOutsideClick: false,
                         allowEscapeKey: false
                     }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_SESSION['ci'] ?>", "_blank");
-                            window.location.href = "index.php?controlador=gestionSolicitud&metodo=estadoVistaEmpleado";
-                        }
+                       
                     });
                 });
             </script>
