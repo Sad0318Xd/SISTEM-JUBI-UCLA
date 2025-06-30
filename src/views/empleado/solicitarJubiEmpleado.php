@@ -1,20 +1,21 @@
 <?php
-            
-        // Si no existe un usuario autenticado, mostrar su nombre y rol
-        if (!isset($_SESSION['ci'])) {
-            header("Location: index.php?controlador=autenticacion&metodo=login");
-        } else {
-            // Si no hay usuario autenticado, mostrar el enlace de login
-                
-            //echo "Usuario: " . $_SESSION['name'] . " (" . $_SESSION['rol'] . ") | ";
-            // Mostrar un enlace para cerrar sesión
-            //echo '<a href="?controlador=autenticacion&metodo=logout">Cerrar Sesión</a>';
-        }
-            
-        $fecha_actual = new DateTime();
-        $fecha_ingreso = new DateTime($_SESSION['fecha_ingreso']);
-        $añosServicio = $fecha_actual->diff($fecha_ingreso);
-    ?>
+
+    // Si no existe un usuario autenticado, mostrar su nombre y rol
+    if (!isset($_SESSION['ci'])) {
+        header("Location: index.php?controlador=autenticacion&metodo=login");
+    }
+        
+    $fecha_actual = new DateTime();
+    $fecha_ingreso = new DateTime($_SESSION['fecha_ingreso']);
+    $añosServicio = $fecha_actual->diff($fecha_ingreso);
+
+    include_once __DIR__ . "/../../../config/connection_db.php";
+    $id = 1;
+    $sql = "SELECT * FROM interfazempleado WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $texto = $stmt->fetch();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitar Jubilación</title>
 <style>
 
@@ -45,11 +47,11 @@
             justify-content: space-between;
         }
 
-.columna {
-    display: flex;
-    flex-direction: column;
-    width: 45%; /* Ajusta el ancho de cada columna */
-}
+        .columna {
+            display: flex;
+            flex-direction: column;
+            width: 45%; /* Ajusta el ancho de cada columna */
+        }
     </style>
 </head>
 <body>
@@ -59,8 +61,9 @@
     ?>
 
     <div class="content">
-        <h1>Bienvenido al apartado donde podrás solicitar tu jubilación</h1>
-        <p>Aquí va el contenido principal...</p>
+
+        <h1 style="margin-top: 30px;"><?= $texto['titulo_soli']?></h1>
+        <p><?= $texto['texto_soli']?></p>
 
         <form action="?controlador=solicitud&metodo=solicitud" method="post">
             <div class="columna">    
@@ -68,19 +71,19 @@
                 <input type="text" id="cedula" name="cedula" required value="<?= $_SESSION['ci']?> " readonly>
                 
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required value="<?= $_SESSION['name']?>">
+                <input type="text" id="nombre" name="nombre" required value="<?= $_SESSION['name']?>" readonly>
 
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required value="<?= $_SESSION['lastname']?>">
+                <input type="text" id="apellido" name="apellido" required value="<?= $_SESSION['lastname']?>" readonly>
 
                 <label for="cargo">Cargo:</label>
-                <input type="text" id="cargo" name="cargo" required value="<?= $_SESSION['rol']?>">
+                <input type="text" id="cargo" name="cargo" required value="<?= $_SESSION['cargo']?>" readonly>
             </div>
 
             <div class="columna">
 
                 <label for="departamento">Departamento:</label>
-                <input type="text" id="departamento" name="departamento" required value="<?= $_SESSION['departamento']?>">
+                <input type="text" id="departamento" name="departamento" required value="<?= $_SESSION['departamento']?>" readonly>
 
                 <label for="añosServicio">Años de servicio:</label>
                 <input type="text" id="añosServicio" name="añosServicio" required value="<?= $añosServicio->y ?>" readonly>
@@ -95,8 +98,64 @@
         <input type="submit" value="Enviar solicitud">
     </form>
     </div>
-    
 
-    
+    <?php if (isset($_GET['error']) && $_GET['error'] === 'existe'): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¡Advertencia!',
+                    text: 'Ya has enviado una solicitud de jubilación antes.',
+                    icon: 'error',
+                    confirmButtonText: 'Ver estado',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php?controlador=solicitud&metodo=solicitud";
+                    }
+                });
+            });
+            </script>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['exito']) && $_GET['exito'] === '1'): ?>
+            <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: '¡Listo!',
+                        text: 'Solicitud enviada correctamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Ver estado y descargar carta',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_SESSION['ci'] ?>", "_blank");
+                            window.location.href = "index.php?controlador=gestionSolicitud&metodo=estadoVistaEmpleado";
+                        }
+                    });
+                });
+            </script>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'invalido'): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¡Advertencia!',
+                    text: 'No cumples con los requisitos para iniciar con tu proceso de jubilación. Verifica que CUMPLES con los AÑOS de servicio o la EDAD correspondiente.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php?controlador=solicitud&metodo=solicitud";
+                    }
+                });
+            });
+            </script>
+        <?php endif; ?>
+      
 </body>
 </html>

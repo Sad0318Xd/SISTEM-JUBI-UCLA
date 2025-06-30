@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2025 a las 03:23:02
+-- Tiempo de generación: 30-06-2025 a las 12:04:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,8 +43,62 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `titulo`, `descripcion`, `imagen`, `instructor`, `fecha`, `created_at`, `updated_at`) VALUES
-(1, 'PHP Avanzado', 'Profundiza en PDO, OOP y patrones de diseño.', '../src/img/cursos/img-1.jpg', 'Juan Pérez', '2025-06-15', '2025-06-12 13:59:07', '2025-06-14 14:46:28'),
-(2, 'MySQL Desde Cero', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/img-1.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-14 14:59:04');
+(1, 'PHP Avanzado', 'Profundiza en PDO, OOP y patrones de diseño.', 'updates/curso_685ebdaa168e80.06988185.png', 'Juan Pérez', '2025-06-15', '2025-06-12 13:59:07', '2025-06-27 18:50:48'),
+(2, 'MySQL Desde Cero', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/curso_6854188c2729f8.25881552.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-19 14:02:52'),
+(3, 'MySQL Desde Cero Parte II', 'Optimización de consultas, índices y seguridad.', '../src/img/cursos/img-1.jpg', 'María Gómez', '2025-07-01', '2025-06-12 13:59:07', '2025-06-14 14:59:04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `interfazadmin`
+--
+
+CREATE TABLE `interfazadmin` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `texto_inicio` varchar(500) NOT NULL,
+  `titulo_soli_gestion` varchar(200) NOT NULL,
+  `texto_soli_gestion1` varchar(500) NOT NULL,
+  `texto_soli_gestion2` varchar(500) NOT NULL,
+  `titulo_lista_soli` varchar(100) NOT NULL,
+  `titulo_curso_gestion` varchar(200) NOT NULL,
+  `texto_curso_gestion1` varchar(500) NOT NULL,
+  `texto_curso_gestion2` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `interfazadmin`
+--
+
+INSERT INTO `interfazadmin` (`id`, `id_user`, `texto_inicio`, `titulo_soli_gestion`, `texto_soli_gestion1`, `texto_soli_gestion2`, `titulo_lista_soli`, `titulo_curso_gestion`, `texto_curso_gestion1`, `texto_curso_gestion2`) VALUES
+(1, 1, '¿Deseas hoy modificar las opciones de cursos para los trabajadores o revisar los estados de jubilación? ¡Vamos a ponernos al día!', 'Bienvenido al Sistema de Gestión de Solicitudes', 'Este sistema permite administrar las solicitudes de jubilación, como <span class=\"highlight\">Procesar</span> el estado de los trámites y gestionar toda la documentación de manera eficiente y segura.', 'Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class=\"highlight\">Volver</span> y <span class=\"highlight\">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.', 'Solicitudes de Jubilación', 'Sistema de <span class=\"highlight\">Gestión de Cursos', 'Este sistema permite agregar y realizar modificaciones a los cursos anteriormente agregados para que todos los usuarios empleados del sistema tengan acceso a ellos.', 'Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class=\"highlight\">Volver</span> y <span class=\"highlight\">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `interfazempleado`
+--
+
+CREATE TABLE `interfazempleado` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `texto_inicio` varchar(250) NOT NULL,
+  `texto_gestion1` varchar(500) NOT NULL,
+  `texto_gestion2` varchar(500) NOT NULL,
+  `titulo_gestion` varchar(500) NOT NULL,
+  `texto_consultar1` varchar(500) NOT NULL,
+  `titulo_consultar` varchar(200) NOT NULL,
+  `texto_curso` varchar(500) NOT NULL,
+  `texto_soli` varchar(500) NOT NULL,
+  `titulo_soli` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `interfazempleado`
+--
+
+INSERT INTO `interfazempleado` (`id`, `id_user`, `texto_inicio`, `texto_gestion1`, `texto_gestion2`, `titulo_gestion`, `texto_consultar1`, `titulo_consultar`, `texto_curso`, `texto_soli`, `titulo_soli`) VALUES
+(1, 1, 'Selecciona la opción de tu preferencia y accede a una variedad de cursos para que aprendas a llevar la vida después de la jubilación o puedes solicitar tu jubilación de manera fácil y rápida.', 'Este sistema permite realizar solicitudes de jubilación, consultar el estado de sus trámites y gestionar toda la documentación requerida de manera eficiente y segura.', 'Utilice el menú lateral para navegar por las diferentes opciones disponibles. Los botones de <span class=\"highlight\">Volver</span> y <span class=\"highlight\">Cerrar Sesión</span> se encuentran fijos en la parte inferior del menú para un acceso fácil y consistente.', 'Sistema de <span class=\"highlight\">Gestión de Jubilaciones</span>', 'Aquí se muestra el estado en el que se encuentra tu solicitud de jubilación,', 'Bienvenido al apartado para consultar tu estado', 'Accede a nuestra variedad de cursos desarrollados especialmente para tí, para que apredas a lidiar con tu post-jubilación. Te ofrecemos todo tipo de cursos y que estan a tu disposicón.', 'mamalo valeria', 'Bienvenido al apartado donde podrás solicitar tu jubilación');
 
 -- --------------------------------------------------------
 
@@ -58,40 +112,38 @@ CREATE TABLE `solicitudes` (
   `asunto` varchar(250) DEFAULT NULL,
   `estado` set('Pendiente','En proceso','Aprobado','Rechazada') DEFAULT NULL,
   `fecha_creacion` date NOT NULL DEFAULT current_timestamp(),
-  `empleado_solicitud` int(11) DEFAULT NULL
+  `empleado_solicitud` int(11) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `solicitudes`
 --
 
-INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`) VALUES
-(8, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(9, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(10, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(11, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(12, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(13, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(14, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(15, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(16, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(17, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(18, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(19, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(20, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(21, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(22, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(23, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(24, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(25, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(26, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(27, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(28, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(29, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(30, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(31, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(33, 'Marcos ', 'Me quiero jubilar porque ya cumpli con los años de servicio', 'Pendiente', '2025-06-14', 31111417),
-(34, 'Kamila', 'Me quiero jubilar porque NI IDEA', 'Pendiente', '2025-06-14', 31926265);
+INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`, `fecha_actualizacion`) VALUES
+(76, 'Luis Rodriguez', 'Me quiero jubilar porque ya cumplí con la edad.', 'Rechazada', '2025-06-27', 31366204, '2025-06-27 17:01:27'),
+(77, 'Marianny Torres', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-27', 31350497, '2025-06-27 17:01:37'),
+(79, 'Valeria Rosales', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-28', 33499456, '2025-06-28 23:42:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `superusuario`
+--
+
+CREATE TABLE `superusuario` (
+  `id` int(11) NOT NULL,
+  `user` varchar(100) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `rol` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `superusuario`
+--
+
+INSERT INTO `superusuario` (`id`, `user`, `password`, `rol`) VALUES
+(1, 'samu', '123', 'superuser');
 
 -- --------------------------------------------------------
 
@@ -108,18 +160,23 @@ CREATE TABLE `usuarios` (
   `fecha_ingreso` date DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
   `genero` set('masculino','femenino') DEFAULT NULL,
-  `departamento` varchar(250) DEFAULT NULL
+  `departamento` varchar(250) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `cargo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`CI`, `name`, `lastname`, `password`, `rol`, `fecha_ingreso`, `edad`, `genero`, `departamento`) VALUES
-(31350493, 'Samuel ', 'Rosales', '123', 'administrador', '2001-06-17', 25, 'masculino', 'Indefinido'),
-(31111417, 'Marcos ', 'Castellanos', '123', 'empleado', '1999-06-11', 36, 'masculino', 'indefinido'),
-(31366204, 'Luis', 'Rodriguez', '123', 'empleado', '2005-12-02', 19, 'masculino', 'Mantenimiento Técnico'),
-(31926265, 'Kamila', 'Alvarado', '123', 'empleado', '2007-01-17', 18, 'femenino', 'Relaciones Laborales');
+INSERT INTO `usuarios` (`CI`, `name`, `lastname`, `password`, `rol`, `fecha_ingreso`, `edad`, `genero`, `departamento`, `telefono`, `cargo`) VALUES
+(31350493, 'Samuel ', 'Rosales', '123', 'administrador', '2001-06-17', 25, 'masculino', 'Departamento de Informática', '04125120548', 'Administrativo'),
+(31111417, 'Marcos ', 'Castellanos', '123', 'empleado', '1999-09-15', 36, 'masculino', 'Decanato', '04123118580', 'Obrero'),
+(31366204, 'Luis', 'Rodriguez', '123', 'empleado', '2005-12-02', 60, 'masculino', 'Mantenimiento Técnico', '04125129119', 'Técnico Superior'),
+(31926265, 'Kamila', 'Alvarado', '123', 'empleado', '2007-01-17', 18, 'femenino', 'Relaciones Laborales', '04125120647', 'Administrativo'),
+(31350497, 'Marianny', 'Torres', '123', 'empleado', '2007-01-17', 61, 'femenino', 'Departamento de Salud', '04123118580', 'Directora de Departamento '),
+(31313131, 'Victor', 'Pargas', '123', 'empleado', '2007-01-17', 20, 'masculino', 'Musica', '04123118580', 'Vocalista'),
+(33499456, 'Valeria', 'Rosales', '123', 'empleado', '2016-06-15', 60, 'femenino', 'cocina 34-r', '04122205304', 'limpia plato ');
 
 --
 -- Índices para tablas volcadas
@@ -132,11 +189,31 @@ ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `interfazadmin`
+--
+ALTER TABLE `interfazadmin`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_super` (`id_user`);
+
+--
+-- Indices de la tabla `interfazempleado`
+--
+ALTER TABLE `interfazempleado`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_super1` (`id_user`);
+
+--
 -- Indices de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `empleado_solicitud` (`empleado_solicitud`);
+
+--
+-- Indices de la tabla `superusuario`
+--
+ALTER TABLE `superusuario`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -152,17 +229,47 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `interfazadmin`
+--
+ALTER TABLE `interfazadmin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `interfazempleado`
+--
+ALTER TABLE `interfazempleado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT de la tabla `superusuario`
+--
+ALTER TABLE `superusuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `interfazadmin`
+--
+ALTER TABLE `interfazadmin`
+  ADD CONSTRAINT `fk_id_super` FOREIGN KEY (`id_user`) REFERENCES `superusuario` (`id`);
+
+--
+-- Filtros para la tabla `interfazempleado`
+--
+ALTER TABLE `interfazempleado`
+  ADD CONSTRAINT `fk_id_super1` FOREIGN KEY (`id_user`) REFERENCES `superusuario` (`id`);
 
 --
 -- Filtros para la tabla `solicitudes`

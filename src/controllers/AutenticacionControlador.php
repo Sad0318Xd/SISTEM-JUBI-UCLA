@@ -12,9 +12,24 @@ class AutenticacionControlador {
                 include_once __DIR__ . '/../views/auth/login.php';
                 return;
             }
-
+            
             require_once __DIR__ . '/../../config/connection_db.php';
             require_once __DIR__ . '/../models/Usuario.php';
+
+            $sql = "SELECT * FROM superusuario WHERE user = 'samu'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $superuser = $stmt->fetch();
+
+            if($superuser) {
+
+                if ($superuser['user'] == $usuarioInput && $superuser['password'] == $passwordInput) {
+                    $_SESSION['rol'] = $superuser['rol'];
+                    header("Location: index.php?controlador=inicio&metodo=inicio");
+                    exit();
+                }
+            }
+
 
             $userModel = new Usuario($pdo);
             $usuario = $userModel->findByCI($usuarioInput);
@@ -33,14 +48,11 @@ class AutenticacionControlador {
                 $_SESSION['fecha_ingreso'] = $usuario->fecha_ingreso;
                 $_SESSION['edad'] = $usuario->edad;
                 $_SESSION['departamento'] = $usuario->departamento;
+                $_SESSION['cargo'] = $usuario->cargo;
 
-                if ($usuario->rol === "administrador") {
-                    header("Location: index.php?controlador=inicio&metodo=inicio");
-                    exit();
-                } else {
-                    header("Location: index.php?controlador=inicio&metodo=inicio");
-                    exit();
-                }
+                header("Location: index.php?controlador=inicio&metodo=inicio");
+                exit();
+                
             }else {
                 $error = "Credenciales inválidas.";
                 include_once __DIR__ . '/../views/auth/login.php';

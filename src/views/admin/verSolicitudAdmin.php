@@ -1,313 +1,371 @@
 <?php
         session_start();
         require_once __DIR__ . '/../../../config/connection_db.php';
-        // Si no existe un usuario autenticado, mostrar su nombre y rol
+        require_once __DIR__ . '/../../models/Solicitud.php';
+
+        // Si no existe un usuario autenticado
         if (!isset($_SESSION['ci'])) {
             header("Location: index.php?controlador=autenticacion&metodo=login");
-        } 
+        }
 
-        $sql = "SELECT * FROM solicitudes";
+        // Obtener el estado del filtro si existe
+        $estado_filtro = isset($_GET['estado']) ? $_GET['estado'] : '';
+
+        $ci_filter = isset($_GET['ciFilter']) ? $_GET['ciFilter'] : '';
+
+        $solicitud = new Solicitud($pdo);
+        
+        if($ci_filter){
+            $solicitudes = $solicitud->FindSolicByCI($ci_filter);
+            $total_solicitudes = $solicitud->TotalSolicitudesByCI($ci_filter);
+        }else{
+            $solicitudes = $solicitud->FindSolicByStatus($estado_filtro);
+            $total_solicitudes = $solicitud->TotalSolicitudes($estado_filtro);
+        }
+
+        $sql = "SELECT * FROM interfazadmin WHERE id = 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-    ?>
+        $texto = $stmt->fetch();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitudes</title>
-<style>
-        /*.table {
-        border-collapse: separate;
-        width: 100%;
-        margin: 20px 0;
-        font-size: 18px;
-        text-align: left;
-        border-radius: 8px;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Chocolate Classical Sans', sans-serif;
         }
-
-        .table th, .table td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            
-            border-radius: 2px;
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
         }
-
-        .table th {
-            background-color: #34495E;
-            color: white;
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        .table tr:nth-child(even) {
-            background-color: #f2f2f2;
+        
+        /* Contenido principal */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-top: 30px;
         }
-
-        .table tr:hover {
-            background-color: #ddd;
-        }*/
-        .contenedor-con-scroll {
-    max-height: 400px;       /* Altura máxima antes de aparecer scroll */
-    overflow-y: auto;        /* Scroll vertical automático */
-    border: 1px solid #ddd;  /* Borde opcional */
-    border-radius: 4px;      /* Bordes redondeados opcionales */
-    padding: 10px;           /* Espaciado interno */
-}
-
-        .tabla-contenedor {
-    max-height: 300px;
-    overflow-y: auto;
-    position: relative;
-    border: 1px solid #ccc;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-thead {
-    position: sticky; /* Mantiene los encabezados visibles */
-    top: 0;
-    background: white;
-    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1);
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-tbody tr:hover {
-    background-color: #f5f5f5;
-}
-
-.tabla-contenedor::-webkit-scrollbar {
-    width: 10px; /* Ancho del scroll */
-}
-
-.tabla-contenedor::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color del fondo */
-}
-
-.tabla-contenedor::-webkit-scrollbar-thumb {
-    background: #888; /* Color de la barra */
-    border-radius: 5px;
-}
-
-.tabla-contenedor::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color al pasar el mouse */
-}
-
-
-
-        h1 {
-            color: #2c3e50;
+        
+        .page-title {
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 28px;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
             padding-bottom: 15px;
             border-bottom: 2px solid #3498db;
         }
-
-        .tabla-container {
-            max-height: 610px;
-            overflow-y: auto;
-            border: 1px solid #e1e5eb;
+        
+        /* Panel de información a la derecha */
+        .info-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+        
+        .panel-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .total-solicitudes {
+            background: #e3f2fd;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: relative;
-            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a73e8;
         }
-
-        table {
-            width: 100%;
-            min-width: 800px;
+        
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        thead {
-            position: sticky;
-            top: 0;
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn-submit {
             background: #2c3e50;
             color: white;
-            z-index: 10;
-        }
-
-        th {
-            padding: 16px 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid #edf2f7;
-            transition: background-color 0.2s;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f8f9fc;
-        }
-
-        tbody tr:hover {
-            background-color: #e3f2fd;
-        }
-
-        td {
-            padding: 14px 15px;
-            color: #4a5568;
-        }
-
-        .action-links {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-links a {
-            padding: 8px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .edit-btn {
-            background-color: #3498db;
-            color: white;
-            border: 1px solid #2980b9;
-        }
-
-        .edit-btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .delete-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: 1px solid #c0392b;
-        }
-
-        .delete-btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Personalización del scrollbar */
-        .tabla-container::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .tabla-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .tabla-container::-webkit-scrollbar-thumb {
-            background: #b8c2cc;
+            border: none;
+            padding: 12px;
             border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
         }
-
-        .tabla-container::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
+        
+        .btn-submit:hover {
+            background: #1a2a4a;
         }
-
-        .info-bar {
+        
+        /* Tabla de solicitudes */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow-x: auto;
+            max-height: 700px;      
+        }
+        
+        .table-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        th, td {
             padding: 12px 15px;
-            background: #e3f2fd;
-            border-radius: 6px;
-            border-left: 4px solid #3498db;
-            flex-direction: column;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            color:rgb(255, 255, 255);
+            font-weight: bold;
+            background: #052c53;
+        }
+        
+        tr:hover {
+            background-color: #f5f7fa;
+        }     
+        
+        
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-panel {
+                order: -1;
+                margin-bottom: 30px;
+            }
         }
 
-        .total-solicitudes {
-            font-weight: 600;
-            color: #2c3e50;
-        }
+                
 
     </style>
 </head>
 <body>
-
+    <!-- Barra de navegación -->
     <?php
-        include __DIR__ . '/../navs/navSolicitudAdmin.php';
+            include __DIR__ . '/../navs/navSolicitudAdmin.php';
     ?>
 
-    <div class="content">
-        <h1>Solicitudes de Jubilación</h1>
-
-        <div class="info-bar">
-            <div class="total-solicitudes">Total de solicitudes: 8</div>
-            <div>
-                <input type="text" placeholder="Buscar solicitud..." style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; width: 250px;">
-                <button style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Buscar</button>
-            </div>
-            <div>
-                <select style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; width: 250px;"> 
-                    <option value=""></option>
-                    <option value="">Pendiente</option>
-                    <option value="">En proceso</option>
-                    <option value="">Aprobado</option>
-                    <option value="">Rechazado</option>
-                </select>
-                <button style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Buscar</button>
-            </div>
-        </div>
-
-        <!-- Contenedor para el scroll -->
-        <div class="tabla-container">
-
-            <table class="">
+    <div class="container">
+        <h1 class="page-title"><?=$texto['titulo_lista_soli'] ?></h1>
+        
+        <div class="main-content">
+            <!-- Contenido principal con la tabla -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Listado de Solicitudes</h2>
+                </div>
                 
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre del solicitante</th>
-                        <th>Cédula</th>
-                        <th>Asunto</th>
-                        <th>Estado</th>
-                        <th>Recibo en</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
+                <!-- Contenedor para el scroll -->
+                <div style="max-height: auto; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre del solicitante</th>
+                                <th>Cédula</th>
+                                <th>Asunto</th>
+                                <th>Estado</th>
+                                <th>Recibo en</th>
+                                <th>Acción</th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-                <tbody>
-                    <?php while($userData = $stmt->fetch()): ?>
+                        <tbody>
+                            <?php while($soli = $solicitudes->fetch()): ?>
+                            <tr>
+                                <td><?= $soli['id']?></td>
+                                <td><?= $soli['name']?></td>
+                                <td><?= $soli['empleado_solicitud']?></td>
+                                <td><?= $soli['asunto']?></td>
+                                <td><?= $soli['estado']?></td>
+                                <td><?= $soli['fecha_creacion']?></td>
 
-                    <tr>
-
-                        <th><?= $userData['id']?></th>
-                        <th><?= $userData['name']?></th>
-                        <th><?= $userData['empleado_solicitud']?></th>
-                        <th><?= $userData['asunto']?></th>
-                        <th><?= $userData['estado']?></th>
-                        <th><?= $userData['fecha_creacion']?></th>
-
-                        <th><a href="updateTask.php?id=<?= $userData['id']?>">Editar</a></th>
-                        <th><a href="deleteTask.php?id=<?= $userData['id']?>">Eliminar</a></th>
-
-                    </tr>
-
-                    <?php endwhile; ?>
-
-                </tbody>
-            </table>
-
+                                <td>
+                                    <?php if ($soli['estado'] == 'Pendiente'): ?>
+                                        <a href="?controlador=procesarSolicitud&metodo=procesarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-procesar">Procesar</a>
+                                    <?php elseif ($soli['estado'] === 'En proceso'): ?>
+                                        <a href="?controlador=procesarSolicitud&metodo=aprobarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-aprobar">Aprobar</a>
+                                        <a href="?controlador=procesarSolicitud&metodo=rechazarSolicitud&ci=<?= $soli['empleado_solicitud'] ?>" class="btn-rechazar">Rechazar</a>
+                                    <?php elseif ($soli['estado'] == 'Aprobado'): ?>
+                                        <span class="badge-success">Aprobado</span>
+                                    <?php elseif ($soli['estado'] == 'Rechazada'): ?>
+                                        <span class="badge-error">Rechazada</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <button onclick="window.location.href='index.php?controlador=gestionSolicitud&metodo=VerSolicitudVistaAdmin&confirmar=ok&ci=<?= $soli['empleado_solicitud'] ?>'" class="delete-btn" >Eliminar</button>
+                                </td>
+                            </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Panel de información a la derecha -->
+            <div class="info-panel">
+                <h3 class="panel-title">Filtros y Estadísticas</h3>
+                
+                <div class="total-solicitudes">
+                    Total de solicitudes: <?= $total_solicitudes ?? '0' ?>
+                </div>
+                
+                <form class="filter-form" method="GET" action="">
+                    <input type="hidden" name="controlador" value="<?= $_GET['controlador'] ?? '' ?>">
+                    <input type="hidden" name="metodo" value="<?= $_GET['metodo'] ?? '' ?>">
+                    
+                    <div class="form-group">
+                        <label for="ciFilter">Buscar por CI:</label>
+                        <input type="text" id="ciFilter" name="ciFilter" placeholder="Ingrese cédula..." value="<?= $ci_filter ?>">
+                    </div>
+                    <button type="submit" class="btn-submit">Aplicar Filtros</button>
+                </form>
+                <form class="filter-form" method="GET" action="">
+                    
+                    <div class="form-group">
+                        <label for="estado">Filtrar por estado:</label>
+                        <input type="hidden" name="controlador" value="<?= $_GET['controlador'] ?? '' ?>">
+                        <input type="hidden" name="metodo" value="<?= $_GET['metodo'] ?? '' ?>">
+                        <select id="estado" name="estado">
+                            <option value="">Todos los estados</option>
+                            <option value="Pendiente" <?= ($estado_filtro == 'Pendiente') ? 'selected' : '' ?>>Pendiente</option>
+                            <option value="En proceso" <?= ($estado_filtro == 'En proceso') ? 'selected' : '' ?>>En proceso</option>
+                            <option value="Aprobado" <?= ($estado_filtro == 'Aprobado') ? 'selected' : '' ?>>Aprobado</option>
+                            <option value="Rechazada" <?= ($estado_filtro == 'Rechazada') ? 'selected' : '' ?>>Rechazada</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Aplicar Filtros</button>
+                </form>
+            </div>
         </div>
     </div>
-    
+
+    <?php if (isset($_GET['procesado']) && $_GET['procesado'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud procesada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ver carta en PDF'
+            }).then(() => {
+                window.open("index.php?controlador=procesarSolicitud&metodo=GenerarPDF&id=<?= $_GET['id'] ?>", "_blank");
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['aprobado']) && $_GET['aprobado'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud aprobada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ver aprobación en PDF'
+            }).then(() => {
+                window.open("index.php?controlador=procesarSolicitud&metodo=generarAprobacionPDF&id=<?= $_GET['id'] ?>", "_blank");
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['rechazada']) && $_GET['rechazada'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Solicitud rechazada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.href = "index.php?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin";
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['confirmar']) && $_GET['confirmar'] === 'ok'): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción eliminará la solicitud seleccionada.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php?controlador=procesarSolicitud&metodo=EliminarSolicitud&ci=<?= $_GET['ci'] ?>";
+                    }
+                });
+            });
+        </script>
+    <?php endif; ?>
 </body>
 </html>

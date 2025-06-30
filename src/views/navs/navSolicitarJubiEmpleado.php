@@ -3,7 +3,7 @@
         <h2>Menú</h2>
         <ul class="menu">
             <li><a href="?controlador=solicitud&metodo=solicitud">Solicitar Jubilación</a></li>
-            <li><a href="?controlador=estado&metodo=estado">Consultar Estado</a></li>
+            <li><a href="?controlador=gestionSolicitud&metodo=estadoVistaEmpleado">Consultar Estado</a></li>
         </ul>
 
         <ul class="menu bottom-menu">

@@ -9,6 +9,8 @@ class Usuario {
     public $fecha_ingreso;
     public $edad;
     public $departamento;
+    public $telefono;
+    public $cargo;
     
     public function __construct($pdo) {
         $this->pdo = $pdo; 
@@ -31,6 +33,8 @@ class Usuario {
             $this->fecha_ingreso = $userData['fecha_ingreso'];
             $this->edad = $userData['edad'];
             $this->departamento = $userData['departamento'];
+            $this->telefono = $userData['telefono'];
+            $this->cargo = $userData['cargo'];
             return $this;
         }
         return null;

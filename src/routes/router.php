@@ -21,7 +21,7 @@ class Router {
                 }
             }
         }
-        echo "<h1>Error 404: Página no encontrada</h1>";
+        require_once  __DIR__ . '/../views/auth/404error.html';
     }
 }
 

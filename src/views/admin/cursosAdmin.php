@@ -6,8 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylecurso.css">
+    <link rel="stylesheet" href="../src/css/stylecurso1.css">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Inicio</title>
 </head>
 <body>
@@ -60,8 +61,8 @@
                                 <i>$fecha</i>
                             </div>
                             <div class="footer__card">
-                                <a href="?controlador=editarCursos&metodo=editarCursos&id={$row['id']}">Editar</a>
-                                <a href="?controlador=editarCursos&metodo=editarCursos&id={$row['id']}">Eliminar</a>
+                                <a href="?controlador=gestionCursos&metodo=editarCursosVistaAdmin&id={$row['id']}">Editar</a>
+                                <a href="?controlador=gestionCursos&metodo=CursosVistaAdmin&confirmar=ok&id={$row['id']}">Eliminar</a>
                             </div>
                         </div>
                         HTML;
@@ -73,6 +74,40 @@
 
         </section>
     </main>
-
+    
+    <?php if (isset($_GET['confirmar']) && $_GET['confirmar'] === 'ok'): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción eliminará el curso seleccionado.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php?controlador=cursos&metodo=eliminarCurso&id=<?= $_GET['id'] ?>";
+                    }
+                });
+            });
+        </script>
+    <?php endif; ?>
+    
+    <?php if (isset($_GET['update']) && $_GET['update'] === 'ok'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Curso actualizado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+            });
+        </script>
+    <?php endif; ?>
 </body>
 </html>

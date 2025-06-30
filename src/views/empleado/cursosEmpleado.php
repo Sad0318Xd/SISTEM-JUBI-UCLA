@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/styleinicio.css">
-    <link rel="stylesheet" href="../src/css/stylecurso.css">
+    <link rel="stylesheet" href="../src/css/stylecurso1.css">
     <title>Inicio</title>
 </head>
 <body>
@@ -32,6 +32,12 @@
                 // Si no hay usuario autenticado, mostrar el enlace de login
                 include 'navs/navInicio.php';   
             }
+
+            include_once __DIR__ . "/../../../config/connection_db.php";
+            $sql = "SELECT * FROM interfazempleado WHERE id = 1";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $texto = $stmt->fetch();
         ?>
     </header>
     <div class="container">
@@ -51,11 +57,8 @@
                 <?php
                 // Ejemplo: mostrar contenido distinto según el rol
                 if (isset($_SESSION['rol'])) {
-                    if ($_SESSION['rol'] == 'administrador') {
-                        echo "¿Deseas hoy modificar las opciones de cursos para los trabajadores o revisar los estados de jubilación?";
-                        echo "¡Vamos a ponernos al día!";
-                    } elseif ($_SESSION['rol'] == 'empleado') {
-                        echo "Accede a nuestra variedad de cursos desarrollados especialmente para tí, para que apredas a lidiar con tu post-jubilación. Te ofrecemos todo tipo de cursos y que estan a tu disposicón.";
+                    if ($_SESSION['rol'] == 'empleado') {
+                        echo $texto['texto_curso'];
                     }
                 } else {
                     echo "Solicita tu jubilación de una forma fácil y rápida con unos cuantos clicks.";
@@ -80,18 +83,19 @@
         
         <div class="container__cards">
             <?php
+
                 require_once __DIR__ . '/../../../config/connection_db.php';
+                require_once __DIR__ . '/../../models/Curso.php';
+
                 // Si no existe un usuario autenticado, mostrar su nombre y rol
                 if (!isset($_SESSION['ci'])) {
                     header("Location: index.php?controlador=autenticacion&metodo=login");
-                } 
-                $sql = "SELECT * FROM cursos";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                
-                
+                }
 
-                while($row = $stmt->fetch()) {
+                $cursos = new Curso($pdo);
+                $cursos = $cursos->CargarCursos();
+
+                while($row = $cursos->fetch()) {
                     // Usar htmlspecialchars para prevenir XSS
                     $titulo = htmlspecialchars($row['titulo']);
                     $descripcion = htmlspecialchars($row['descripcion']);
@@ -99,16 +103,14 @@
                     $instructor = htmlspecialchars($row['instructor']);
                     $fecha = htmlspecialchars($row['fecha']);
 
-                    $rutaimg = $imagen;
-
-                    if (!file_exists($rutaimg)) {
-                        echo "La imagen no existe: $rutaimg";
+                    if (!file_exists($imagen)) {
+                        echo "La imagen no existe: $imagen";
                     }
                     
                     echo <<<HTML
                     <div class="card">
                         <div class="cover__card">
-                            <img src="$rutaimg" alt="Portada del curso">
+                            <img src="$imagen" alt="Portada del curso">
                         </div>
                         <h2>$titulo</h2>
                         <p>$descripcion</p>

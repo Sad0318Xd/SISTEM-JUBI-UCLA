@@ -19,7 +19,7 @@
         <?php
             session_start();
 
-            if (isset($_SESSION['ci'])) {
+            if (isset($_SESSION['ci']) || isset($_SESSION['rol'])) {
                 
                 if(isset($_SESSION['rol'])) {
                     if ($_SESSION['rol'] == 'empleado') {
@@ -27,6 +27,9 @@
 
                     } elseif ($_SESSION['rol'] == 'administrador') {
                         include 'navs/navInicioAdmin.php';
+
+                    } elseif ($_SESSION['rol'] == 'superuser') {
+                        include 'navs/navInicioSuperUser.php';
                     }
                 }
             } else {
@@ -34,38 +37,37 @@
                 include 'navs/navInicio.php';
                 
             }
+
+            include_once __DIR__ . "/../../config/connection_db.php";
+
+            $sql = "SELECT texto_inicio FROM interfazempleado WHERE id = 1";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $texto_inicio = $stmt->fetch();
+
+            $sql = "SELECT * FROM interfazadmin WHERE id = 1";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $text_Admin = $stmt->fetch();
         ?>
     </header>
-    
+       
     <main>
-
         <div class="container__background-circule">
             <div class="circule"></div>
         </div>
-
-        <!--<p>
-        <?php
-            // Ejemplo: mostrar contenido distinto según el rol
-            if (isset($_SESSION['rol'])) {
-                if ($_SESSION['rol'] == 'administrador') {
-                    echo "Esta es el contenido exclusivo para administradores.";
-                } elseif ($_SESSION['rol'] == 'empleado') {
-                    echo "Esta es la información destinada a los empleados.";
-                    echo '<a href="?controlador=menuJubilacion&metodo=inicio">Solicitar Jubilación</a>';
-                }
-            } else {
-                echo "Esta es la página de inicio que muestra información importante para el usuario.";
-            }
-        ?>
-        </p> -->
 
         <div class="container">
             
             <h1>
                 <?php
                 // Ejemplo: mostrar contenido distinto según el rol
-                if (isset($_SESSION['rol'])) {                    
-                    echo "BIENVENIDO, " . $_SESSION['name'] . " " . $_SESSION['lastname'] . ".";
+                if (isset($_SESSION['rol'])) {
+                    if ($_SESSION['rol'] == 'superuser') {
+                        echo 'Hola, SuperUsuario.';
+                    } else {                   
+                        echo "Bienvenido, " . $_SESSION['name'] . " " . $_SESSION['lastname'] . ".";
+                    }
                 } else {
                     echo "SISTEMA DE JUBILACIÓN UCLA";
                 }
@@ -77,10 +79,11 @@
                 // Ejemplo: mostrar contenido distinto según el rol
                 if (isset($_SESSION['rol'])) {
                     if ($_SESSION['rol'] == 'administrador') {
-                        echo "¿Deseas hoy modificar las opciones de cursos para los trabajadores o revisar los estados de jubilación?";
-                        echo "¡Vamos a ponernos al día!";
+                        echo $text_Admin['texto_inicio'];
                     } elseif ($_SESSION['rol'] == 'empleado') {
-                        echo "Selecciona la opción de tu preferencia y accede a una variedad de cursos para que aprendas a llevar la vida después de la jubilación ó puedes solicitar tu jubilación de manera fácil y rápida.";
+                        echo $texto_inicio['texto_inicio'];
+                    } elseif ($_SESSION['rol'] == 'superuser') {
+                        echo 'Es hora de hacer nuevos cambios.';
                     }
                 } else {
                     echo "Solicita tu jubilación de una forma fácil y rápida con unos cuantos clicks.";
@@ -89,40 +92,46 @@
             </P>
             
             <?php
-                if (!isset($_SESSION['ci'])) {
+                if (!isset($_SESSION['rol'])) {
                     // Si no hay usuario autenticado, mostrar los botones
                     include 'buttons.php';
                 }
             ?>
-
         </div>
 
         <div class="container-img">
-            <img  src="
-            <?php
-                // Ejemplo: mostrar contenido distinto según el rol
-                if (isset($_SESSION['rol'])) {
-                    if ($_SESSION['rol'] == 'empleado') {
-                        echo "../src/img/jubilado.png";
-                    }
-                } else {
-                    echo "../src/img/jubilado.png";
-                }
-                ?>
-            ">
-
-            
-        </div>
-        <div class="container-img-admin">
-                <img src="
+            <img   src="
                 <?php
                     if (isset($_SESSION['rol'])) {
-                    if ($_SESSION['rol'] == 'administrador') {
-                        echo "../src/img/admin1.png";
-                    }}
+                        if ($_SESSION['rol'] == 'empleado') {
+                            echo "../src/img/jubilado.png";
+                        }
+                    } else {
+                        
+                        echo "../src/img/jubilado.png";
+                    }
                 ?>
             ">
         </div>
+
+        <div class="container-img-admin">
+            <?php
+                if (isset($_SESSION['rol'])) {
+                    if ($_SESSION['rol'] == 'administrador') {
+                        echo <<<HTML
+                            <img src="../src/img/admin1.png">    
+                            HTML;
+
+                    } elseif ($_SESSION['rol'] == 'superuser') {
+                        echo <<<HTML
+                        <img style="width: 1000px;" src="../src/img/superuser.png">        
+                        HTML;
+                    }
+                }
+            ?>
+        </div>
+
+        
     </main>
     
     <footer>

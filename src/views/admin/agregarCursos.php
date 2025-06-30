@@ -1,5 +1,4 @@
 <?php
-    require_once __DIR__ . '/../../../config/connection_db.php';
     session_start();
 
     // Validar sesión...
@@ -23,8 +22,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylecurso.css">
+    <link rel="stylesheet" href="../src/css/stylecurso1.css">
     <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Inicio</title>
 </head>
 <body>
@@ -39,11 +39,10 @@
             <h1>Agregar un nuevo Curso</h1>
 
             <form 
-                action="?controlador=actualizarCurso&metodo=AgregarCurso" 
+                action="?controlador=cursos&metodo=agregarCurso" 
                 method="post" 
                 enctype="multipart/form-data"
             >
-                <input type="hidden" name="id" value="<?= $curso['id'] ?>">
                 
                 <label>Título:<br>
                 <input type="text" name="titulo" 
@@ -71,7 +70,7 @@
                 </label><br>
                 
                 <label>Subir nueva imagen:<br>
-                <input type="file" name="imagen">          
+                <input type="file" name="imagen" required>          
                 <small>(png/jpg, max 2 MB)</small>
                 </label><br><br>
                 
@@ -79,6 +78,19 @@
             </form>
         </section>
     </main>
+
+    <?php if (isset($_GET['status']) && $_GET['status'] === 'agregado'): ?>
+        <script>
+            Swal.fire({
+                title: '¡Listo!',
+                text: 'Curso agregado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.href = "index.php?controlador=gestionCursos&metodo=AgregarCursosVistaAdmin";
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 </html>

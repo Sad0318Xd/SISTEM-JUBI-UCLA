@@ -2,7 +2,7 @@
     
         <h2>Menú</h2>
         <ul class="menu">
-            <li><a href="?controlador=VerSolicitud&metodo=VerSolicitud">Solicitudes</a></li>
+            <li><a href="?controlador=gestionSolicitud&metodo=verSolicitudVistaAdmin">Solicitudes</a></li>
         </ul>
 
         <ul class="menu bottom-menu">

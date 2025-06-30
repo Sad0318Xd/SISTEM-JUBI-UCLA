@@ -102,8 +102,8 @@
         </div>
         
         <div class="testimonial">
-            <p>"Gracias a esta plataforma, pude completar mi trámite de jubilación en menos de 15 minutos. Ahora estoy disfrutando de sus cursos para prepararme para esta nueva etapa. ¡Una experiencia transformadora!"</p>
-            <div class="testimonial-author">- Marta Rodríguez, recién jubilada</div>
+            <!--<p>"Gracias a esta plataforma, pude completar mi trámite de jubilación en menos de 15 minutos. Ahora estoy disfrutando de sus cursos para prepararme para esta nueva etapa. ¡Una experiencia transformadora!"</p>
+            <div class="testimonial-author">- Marta Rodríguez, recién jubilada</div> -->
         </div>
     </div>
         

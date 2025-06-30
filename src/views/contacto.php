@@ -52,7 +52,7 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <div>
                     <h3>Dirección</h3>
-                    <p>123 Calle Principal, Ciudad, País</p>
+                    <p>luego lo pongo</p>
                 </div>
             </div>
             
@@ -60,7 +60,7 @@
                 <i class="fas fa-phone-alt"></i>
                 <div>
                     <h3>Teléfono</h3>
-                    <p>+1 234 567 890</p>
+                    <p>+58 412 5120548</p>
                 </div>
             </div>
             
@@ -68,7 +68,7 @@
                 <i class="fas fa-envelope"></i>
                 <div>
                     <h3>Email</h3>
-                    <p>contacto@empresa.com</p>
+                    <p>ucla@gmail.com</p>
                 </div>
             </div>
             
@@ -76,7 +76,7 @@
                 <i class="fas fa-clock"></i>
                 <div>
                     <h3>Horario</h3>
-                    <p>Lunes a Viernes: 9:00 - 18:00</p>
+                    <p>Lunes a Viernes: 7:00 - 12:00</p>
                 </div>
             </div>
             
