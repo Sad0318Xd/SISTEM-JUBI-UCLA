@@ -35,7 +35,7 @@ class AutenticacionControlador {
             $usuario = $userModel->findByCI($usuarioInput);
             
             //password_verify($passwordInput, $usuario->password)
-            if(!$usuario->CI) {
+            if(!$usuario) {
                 $error = "Credenciales inválidas.";
                 include_once __DIR__ . '/../views/auth/login.php';
                 return;
