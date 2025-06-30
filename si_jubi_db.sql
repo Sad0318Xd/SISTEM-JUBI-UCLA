@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2025 a las 12:04:35
+-- Tiempo de generación: 01-07-2025 a las 01:24:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -113,17 +113,18 @@ CREATE TABLE `solicitudes` (
   `estado` set('Pendiente','En proceso','Aprobado','Rechazada') DEFAULT NULL,
   `fecha_creacion` date NOT NULL DEFAULT current_timestamp(),
   `empleado_solicitud` int(11) DEFAULT NULL,
-  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `actividad` set('activo','inactivo','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `solicitudes`
 --
 
-INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`, `fecha_actualizacion`) VALUES
-(76, 'Luis Rodriguez', 'Me quiero jubilar porque ya cumplí con la edad.', 'Rechazada', '2025-06-27', 31366204, '2025-06-27 17:01:27'),
-(77, 'Marianny Torres', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-27', 31350497, '2025-06-27 17:01:37'),
-(79, 'Valeria Rosales', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-28', 33499456, '2025-06-28 23:42:10');
+INSERT INTO `solicitudes` (`id`, `name`, `asunto`, `estado`, `fecha_creacion`, `empleado_solicitud`, `fecha_actualizacion`, `actividad`) VALUES
+(76, 'Luis Rodriguez', 'Me quiero jubilar porque ya cumplí con la edad.', 'Rechazada', '2025-06-27', 31366204, '2025-06-30 22:53:08', 'inactivo'),
+(77, 'Marianny Torres', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-27', 31350497, '2025-06-30 22:57:21', 'inactivo'),
+(79, 'Valeria Rosales', 'Me quiero jubilar porque ya cumplí con la edad.', 'Aprobado', '2025-06-28', 33499456, '2025-06-30 22:43:58', 'activo');
 
 -- --------------------------------------------------------
 
