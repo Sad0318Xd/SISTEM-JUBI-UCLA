@@ -36,6 +36,7 @@ class SolicitudControlador {
             $solicitud->asunto = $asuntoInput;
             $solicitud->estado = $estado;
             $solicitud->empleado_solicitud_id = $_SESSION['ci'];
+            $solicitud->actividad = 'activo';
             $solicitud->EnviarSolicitud();
 
             header("Location: index.php?controlador=solicitud&metodo=solicitud&exito=1");
