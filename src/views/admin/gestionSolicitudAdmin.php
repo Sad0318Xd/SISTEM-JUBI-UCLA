@@ -13,6 +13,11 @@
     $stmt->execute();
     $texto = $stmt->fetch();
 
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +25,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylegestion1.css">
     <title>Gestión de Solicitudes</title>
+    <style>
+        :root {
+            --color-primary: <?= $colors['color_primary'] ?>;
+            --color-background: <?= $colors['color_background'] ?>;
+        }
+    </style>
 </head>
 <body>
 

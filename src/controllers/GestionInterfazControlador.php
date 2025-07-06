@@ -126,7 +126,57 @@ class GestionInterfazControlador {
         }
     }
 
+    public function EditarInterfazColores(){
 
+        require_once __DIR__ . '/../../config/connection_db.php';
+        // Procesar el formulario si se envió
+        $message = '';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $primary = $_POST['primary'] ?? '';
+            $background = $_POST['background'] ?? '';
+            $id = (int) $_POST['id'];
+            
+            // Validar colores (formato HEX)
+            if (preg_match('/^#[a-f0-9]{6}$/i', $primary) &&
+                preg_match('/^#[a-f0-9]{6}$/i', $background)) {
+                
+                // Actualizar colores en la base de datos
+                $colors = [
+                    'color_primary' => $primary,
+                    'color_background' => $background
+                ];
+
+                 // Montar SET clausula
+                $setParts = [];
+                $vals     = [];
+
+                foreach ($colors as $col => $val) {
+                    $setParts[] = "`$col` = ?";
+                    $vals[]     = $val;
+                }
+
+                $vals[] = $id;
+                $sql = "UPDATE color_settings SET " . implode(', ', $setParts) . " WHERE id = ?";
+
+                $stmt = $pdo->prepare($sql);
+                if ($stmt->execute($vals)) {
+
+                    header("Location: index.php?controlador=gestionInterfaz&metodo=editarInterfazColores&update=ok");
+                    exit;
+                } else {
+                    header("Location: index.php?controlador=gestionInterfaz&metodo=editarInterfazColores&update=error");
+                    exit;
+                }
+                   
+            } else {
+                $message = "Error: Por favor ingresa colores válidos en formato HEX (ej: #052c53)";
+            }
+
+        } else {
+            include_once  __DIR__ . '/../views/superAdmin/editarColores.php';
+        }
     
+    }
 }
 ?>

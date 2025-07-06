@@ -10,11 +10,16 @@
     $añosServicio = $fecha_actual->diff($fecha_ingreso);
 
     include_once __DIR__ . "/../../../config/connection_db.php";
-    $id = 1;
+    
     $sql = "SELECT * FROM interfazempleado WHERE id = 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $texto = $stmt->fetch();
+
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -25,10 +30,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylegestion1.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Solicitar Jubilación</title>
-<style>
+    
+    <style>
+        :root {
+            --color-primary: <?= $colors['color_primary'] ?>;
+            --color-background: <?= $colors['color_background'] ?>;
+        }
 
         form { max-width: 500px; margin: auto;
             display: flex;

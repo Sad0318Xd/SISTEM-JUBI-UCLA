@@ -6,13 +6,12 @@
         header("Location: index.php?controlador=autenticacion&metodo=login");
         exit;
     }
+    include_once __DIR__ . "/../../../config/connection_db.php";
 
-    // 1) Traer datos actuales
-    /*$sql = "SELECT * FROM cursos WHERE id = ?";
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $curso = $stmt->fetch();   */
-    
+    $stmt->execute();
+    $colors = $stmt->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +21,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylecurso1.css">
-    <link rel="stylesheet" href="../src/css/stylegestion.css">
+    <link rel="stylesheet" href="../src/css/stylecurso2.css">
+    <link rel="stylesheet" href="../src/css/stylegestion2.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Inicio</title>
+    <title>Agregar un Curso</title>
+    <style>
+        :root {
+            --color-primary: <?= $colors['color_primary'] ?>;
+            --color-background: <?= $colors['color_background'] ?>;
+        }
+    </style>
 </head>
 <body>
     <main>
