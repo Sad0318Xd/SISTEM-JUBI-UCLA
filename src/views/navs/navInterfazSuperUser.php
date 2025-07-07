@@ -4,6 +4,7 @@
         <ul class="menu">
             <li><a href="?controlador=gestionInterfaz&metodo=editarInterfazAdmin">Configuración de vista admin</a></li>
             <li><a href="?controlador=gestionInterfaz&metodo=editarInterfazEmpleado">Configuración de vista empleado</a></li>
+            <li><a href="?controlador=gestionInterfaz&metodo=editarInterfazColores">Configuración de colores</a></li>
         </ul>
 
         <ul class="menu bottom-menu">

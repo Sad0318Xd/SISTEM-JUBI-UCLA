@@ -1,3 +1,11 @@
+<?php 
+    include_once __DIR__ . "/../../config/connection_db.php";
+
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +14,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/styleInicio.css">
+    <link rel="stylesheet" href="../src/css/styleInicio2.css">
+    <style>
+        :root {
+            --color-primary: <?= $colors['color_primary'] ?>;
+            --color-background: <?= $colors['color_background'] ?>;
+        }
+    </style>
     <title>Inicio</title>
 </head>
 <body>
@@ -36,9 +50,7 @@
                 // Si no hay usuario autenticado, mostrar el enlace de login
                 include 'navs/navInicio.php';
                 
-            }
-
-            include_once __DIR__ . "/../../config/connection_db.php";
+            } 
 
             $sql = "SELECT texto_inicio FROM interfazempleado WHERE id = 1";
             $stmt = $pdo->prepare($sql);
@@ -64,7 +76,7 @@
                 // Ejemplo: mostrar contenido distinto según el rol
                 if (isset($_SESSION['rol'])) {
                     if ($_SESSION['rol'] == 'superuser') {
-                        echo 'Hola, SuperUsuario.';
+                        echo 'Bienvenido, SuperUsuario.';
                     } else {                   
                         echo "Bienvenido, " . $_SESSION['name'] . " " . $_SESSION['lastname'] . ".";
                     }

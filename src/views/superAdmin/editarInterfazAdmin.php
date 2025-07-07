@@ -10,6 +10,12 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $texto = $stmt->fetch();
+
+    // Obtener colores actuales
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -20,33 +26,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/stylegestion1.css">
+    <link rel="stylesheet" href="../src/css/stylegestion2.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Solicitar Jubilación</title>
+    <title>Interfaz Administradores</title>
 <style>
+    :root {
+        --color-primary: <?= $colors['color_primary'] ?>;
+        --color-background: <?= $colors['color_background'] ?>;
+    }
 
-        form { max-width: 500px; margin: auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Espacio entre columnas */
-            justify-content: space-between; 
-        }
-        input[type="text"], input[type="password"] { width: 100%; padding: 8px; }
-        input[type="submit"] { margin-top: 15px; padding: 10px; width: 100%; }
-        .error { color: red; text-align: center; }
+    form { 
+        max-width: 500px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Espacio entre columnas */
+        justify-content: space-between; 
+    }
+    
+    input[type="text"], input[type="password"] { width: 100%; padding: 8px; }
+    input[type="submit"] { margin-top: 15px; padding: 10px; width: 100%; }
+    .error { color: red; text-align: center; }
 
-        .formulario {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 100px; /* Espacio entre columnas */
-            justify-content: space-between;
-        }
+    .formulario {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 100px; /* Espacio entre columnas */
+        justify-content: space-between;
+    }
 
-        .columna {
-            display: flex;
-            flex-direction: column;
-            width: 45%; /* Ajusta el ancho de cada columna */
-        }
+    .columna {
+        display: flex;
+        flex-direction: column;
+        width: 45%; /* Ajusta el ancho de cada columna */
+    }
 </style>
 </head>
 <body>
@@ -57,8 +70,8 @@
 
     <div style="width: 1000px; align-items: center;" class="content">
 
-        <h1 style="margin-top: 30px;">aaa</h1>
-        <p>estoy arrecho</p>
+        <h1 style="margin-top: 30px;">Interfaz de los Administradores</h1>
+        <p>Cambia todos los títulos y parrafos que son visibles para los Administradores el sistema.</p>
 
         <form action="?controlador=gestionInterfaz&metodo=actualizarInterfazAdmin" method="post" style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; gap: 1.5rem;">
             

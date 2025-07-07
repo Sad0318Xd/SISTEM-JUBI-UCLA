@@ -6,10 +6,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/styleInicio.css">
-    <link rel="stylesheet" href="../src/css/styleinteres.css">
+    <link rel="stylesheet" href="../src/css/styleInicio1.css">
+    <link rel="stylesheet" href="../src/css/styleinteres1.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Inicio</title>
+    <title>Información de interés</title>
+    <style>
+        :root {
+            --color-primary: <?= $colors['color_primary'] ?>;
+            --color-background: <?= $colors['color_background'] ?>;
+        }
+    </style>
 </head>
 <body>
     <header>
