@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2025 a las 01:24:18
+-- Tiempo de generación: 07-07-2025 a las 12:41:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `si_jubi_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `color_settings`
+--
+
+CREATE TABLE `color_settings` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `color_primary` varchar(50) NOT NULL,
+  `color_background` varchar(50) NOT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `color_settings`
+--
+
+INSERT INTO `color_settings` (`id`, `color_primary`, `color_background`, `last_updated`) VALUES
+(1, '#052c53', '#f0f8ff', '2025-07-05 22:19:54'),
+(2, '#052c53', '#f0f8ff', '2025-07-05 21:16:57');
 
 -- --------------------------------------------------------
 
@@ -184,6 +205,12 @@ INSERT INTO `usuarios` (`CI`, `name`, `lastname`, `password`, `rol`, `fecha_ingr
 --
 
 --
+-- Indices de la tabla `color_settings`
+--
+ALTER TABLE `color_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `cursos`
 --
 ALTER TABLE `cursos`
@@ -225,6 +252,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `color_settings`
+--
+ALTER TABLE `color_settings`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cursos`
