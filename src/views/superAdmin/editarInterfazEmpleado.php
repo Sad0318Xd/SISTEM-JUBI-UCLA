@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/stylegestion2.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Solicitar Jubilación</title>
+    <title>Interfaz Empleados</title> 
 <style>
     :root {
         --color-primary: <?= $colors['color_primary'] ?>;
@@ -65,8 +65,8 @@
 
     <div style="width: 1000px; align-items: center;" class="content">
 
-        <h1 style="margin-top: 30px;">aaa</h1>
-        <p>estoy arrecho</p>
+        <h1 style="margin-top: 30px;">Interfaz de los Empleados</h1>
+        <p>Edita todos los títulos y párrafos que son visibles para los empleados del sistema.</p>
 
         <form action="?controlador=gestionInterfaz&metodo=actualizarInterfazEmpleado" method="post" style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; gap: 1.5rem;">
             

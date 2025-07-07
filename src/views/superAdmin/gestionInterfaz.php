@@ -42,8 +42,8 @@
     ?>
 
     <main class="content">
-        <h1>hola señor</h1>
-        <p>hagale con fe</p>
+        <h1>Un gusto tenerlo de vuelta SuperUsuario</h1>
+        <p>¿Qué editarás hoy?</p>
         <p></p>
     </main>
     

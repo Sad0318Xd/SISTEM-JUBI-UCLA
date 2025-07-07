@@ -76,7 +76,7 @@
                 // Ejemplo: mostrar contenido distinto según el rol
                 if (isset($_SESSION['rol'])) {
                     if ($_SESSION['rol'] == 'superuser') {
-                        echo 'Hola, SuperUsuario.';
+                        echo 'Bienvenido, SuperUsuario.';
                     } else {                   
                         echo "Bienvenido, " . $_SESSION['name'] . " " . $_SESSION['lastname'] . ".";
                     }
