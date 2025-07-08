@@ -6,23 +6,12 @@
     }
     include_once __DIR__ . "/../../../config/connection_db.php";
 
+    // Obtener colores actuales
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
 
-
-// Obtener colores actuales
-$sql = "SELECT * FROM color_settings WHERE id = 1";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$colors = $stmt->fetch();
-
-/*$colors = [];
-$result = $conn->query("SELECT * FROM color_settings");
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $colors[$row['color_name']] = $row['color_value'];
-    }
-}*/
-
-// Cerrar conexión
 ?>
 
 <!DOCTYPE html>
@@ -185,6 +174,15 @@ if ($result->num_rows > 0) {
             background: var(--accent);
             color: #333;
         }
+
+        .boton {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .fondo {
+            background-color: var(--color-background);
+        }
     </style>
 </head>
 <body>
@@ -229,11 +227,6 @@ if ($result->num_rows > 0) {
                 <button type="submit">Guardar Cambios</button>
             </form>
             
-        <!-- <div class="color-example">
-                <div class="example-item example-primary">Primario</div>
-                <div class="example-item example-secondary">Secundario</div>
-                <div class="example-item example-accent">Acento</div>
-            </div>-->
         </div>
     </main>
     
@@ -286,7 +279,11 @@ if ($result->num_rows > 0) {
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";
@@ -305,7 +302,11 @@ if ($result->num_rows > 0) {
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";
@@ -324,7 +325,11 @@ if ($result->num_rows > 0) {
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";

@@ -53,7 +53,7 @@ class Solicitud {
         $params = [];
 
         if (!empty($Status)) {
-            $sql .= " WHERE estado = :estado";
+            $sql .= " AND estado = :estado";
             $params[':estado'] = $Status;
         }
 
@@ -68,9 +68,9 @@ class Solicitud {
 
      public function TotalSolicitudes($Status) {
 
-        $sql_count = "SELECT COUNT(*) as total FROM solicitudes";
+        $sql_count = "SELECT COUNT(*) as total FROM solicitudes WHERE actividad = 'activo'";
         if (!empty($Status)) {
-            $sql_count .= " WHERE estado = :estado AND actividad = 'activo'";
+            $sql_count .= " AND estado = :estado";
         }
         $stmt_count = $this->pdo->prepare($sql_count);
         if (!empty($Status)) {
@@ -88,9 +88,9 @@ class Solicitud {
 
     public function TotalSolicitudesByCI($ci) {
 
-        $sql_count = "SELECT COUNT(*) as total FROM solicitudes AND actividad = 'activo'";
+        $sql_count = "SELECT COUNT(*) as total FROM solicitudes WHERE actividad = 'activo'";
         if (!empty($ci)) {
-            $sql_count .= " WHERE empleado_solicitud = :ci";
+            $sql_count .= " AND empleado_solicitud = :ci";
         }
         $stmt_count = $this->pdo->prepare($sql_count);
         if (!empty($ci)) {

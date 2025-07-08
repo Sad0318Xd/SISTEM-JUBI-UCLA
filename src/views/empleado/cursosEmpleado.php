@@ -21,8 +21,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/styleinicio1.css">
-    <link rel="stylesheet" href="../src/css/stylecurso11.css">
+    <link rel="stylesheet" href="../src/css/styleinicio2.css">
+    <link rel="stylesheet" href="../src/css/stylecurso2.css">
     <title>Inicio</title>
     <style>
         :root {
