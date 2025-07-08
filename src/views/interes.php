@@ -1,3 +1,11 @@
+<?php 
+    include_once __DIR__ . "/../../config/connection_db.php";
+
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/styleInicio1.css">
+    <link rel="stylesheet" href="../src/css/styleInicio2.css">
     <link rel="stylesheet" href="../src/css/styleinteres1.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Información de interés</title>

@@ -5,24 +5,13 @@
         header("Location: index.php?controlador=autenticacion&metodo=login");
     }
     include_once __DIR__ . "/../../../config/connection_db.php";
+    
+    // Obtener colores actuales
+    $sql = "SELECT * FROM color_settings WHERE id = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $colors = $stmt->fetch();
 
-
-
-// Obtener colores actuales
-$sql = "SELECT * FROM color_settings WHERE id = 1";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$colors = $stmt->fetch();
-
-/*$colors = [];
-$result = $conn->query("SELECT * FROM color_settings");
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $colors[$row['color_name']] = $row['color_value'];
-    }
-}*/
-
-// Cerrar conexión
 ?>
 
 <!DOCTYPE html>
