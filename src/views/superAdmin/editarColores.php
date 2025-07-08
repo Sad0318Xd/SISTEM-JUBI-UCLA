@@ -5,7 +5,7 @@
         header("Location: index.php?controlador=autenticacion&metodo=login");
     }
     include_once __DIR__ . "/../../../config/connection_db.php";
-    
+
     // Obtener colores actuales
     $sql = "SELECT * FROM color_settings WHERE id = 1";
     $stmt = $pdo->prepare($sql);
@@ -174,6 +174,15 @@
             background: var(--accent);
             color: #333;
         }
+
+        .boton {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .fondo {
+            background-color: var(--color-background);
+        }
     </style>
 </head>
 <body>
@@ -218,11 +227,6 @@
                 <button type="submit">Guardar Cambios</button>
             </form>
             
-        <!-- <div class="color-example">
-                <div class="example-item example-primary">Primario</div>
-                <div class="example-item example-secondary">Secundario</div>
-                <div class="example-item example-accent">Acento</div>
-            </div>-->
         </div>
     </main>
     
@@ -275,7 +279,11 @@
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";
@@ -294,7 +302,11 @@
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";
@@ -313,7 +325,11 @@
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
                     allowOutsideClick: false,
-                    allowEscapeKey: false
+                    allowEscapeKey: false,
+                    customClass: {
+                        confirmButton: 'boton',
+                        popup: 'fondo'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "index.php?controlador=gestionInterfaz&metodo=editarInterfazColores";
